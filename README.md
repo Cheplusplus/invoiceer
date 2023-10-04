@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Invoice Generator App
 
-## Getting Started
+Invoice Generator App Screenshot
 
-First, run the development server:
+This is an Invoice Generator App created with Next.js, Prisma, and SQLite. It allows users to easily create and manage invoices for their business or personal use.
+
+Folder Structure
+
+Here's a typical folder structure for your Next.js, Prisma, and SQLite-based Invoice Generator App:
+
+├── .next/ # Next.js build output (auto-generated)
+├── node_modules/ # Node.js modules (auto-generated)
+├── pages/ # Next.js pages and routing
+│ ├── api/ # API routes (server-side)
+│ ├── \_app.js # Custom Next.js app component
+│ └── ... # Other pages
+├── prisma/ # Prisma database schema and migrations
+├── public/ # Public files (e.g., images, static assets)
+│ ├── images/ # Image files
+│ └── ...
+├── src/ # Source code
+│ ├── components/ # React components
+│ ├── lib/ # Utility functions and libraries
+│ ├── pages/ # Additional page components
+│ └── ...
+├── .env.local # Environment variables (local development)
+├── package.json # Node.js dependencies and scripts
+├── README.md # Project documentation
+├── LICENSE # License file
+└── ... # Other configuration files, test files, etc.
+
+Requirements
+
+Before setting up and running the Invoice Generator App, make sure you have the following prerequisites installed:
+
+    Node.js: Ensure you have Node.js installed on your machine. You can download it from nodejs.org.
+
+    npm (Node Package Manager): npm is typically included with Node.js installation, so you should have it available. You can verify its presence by running npm -v in your terminal.
+
+    Git: You'll need Git for cloning the project repository and version control. Download it from git-scm.com.
+
+    SQLite: Since the app uses SQLite, you don't need to install it separately. Prisma will handle database creation and management.
+
+    Prisma CLI: Install the Prisma CLI globally using npm with the following command:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+    npm install -g prisma
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Next.js: The app is built with Next.js. You can install it globally or use it as a project dependency. To install it globally, you can use:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install -g next
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+However, it's recommended to keep it as a project dependency (which is already in your package.json), so you can use it via npm run commands.
 
-## Learn More
+Tailwind CSS (optional): If you want to customize the app's styling using Tailwind CSS, you can install it by following the official installation guide at tailwindcss.com.
 
-To learn more about Next.js, take a look at the following resources:
+Environment Variables: Create a .env.local file in your project root and set your environment variables, such as database connection details and any other sensitive information. You can refer to the "Configuration" section in the README.md for more details.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+With these requirements met, you should be ready to set up and run the Invoice Generator App as described in the "Installation" section of the README.md.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Features
 
-## Deploy on Vercel
+    User Authentication: Users can create an account, log in, and securely manage their invoices.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    Create Invoices: Users can easily create new invoices, add line items, specify due dates, and add customer information.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    Invoice Management: Users can view and manage their invoices, including marking them as paid, editing, or deleting them.
+
+    Invoice PDF Generation: The app generates PDF invoices that can be downloaded and shared with customers.
+
+    SQLite Database: Prisma is used to interact with an SQLite database, making data storage and retrieval efficient and reliable.
+
+Installation
+
+    Clone this repository to your local machine:
+
+```bash
+    git clone https://github.com/yourusername/invoice-generator-app.git
+```
+
+Navigate to the project directory:
+
+```bash
+    cd invoice-generator-app
+```
+
+Install the dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
+
+```bash
+    npm run dev
+```
+
+    Access the app in your browser at http://localhost:3000.
+
+Configuration
+
+Before running the app in production, make sure to configure the following:
+
+    Database Configuration:
+        Open the prisma/schema.prisma file and configure your database connection details (e.g., SQLite file path or other database URL).
+
+    Authentication:
+        Configure authentication methods and settings in the app as per your requirements. You might want to integrate with a service like Auth0, Firebase, or implement your custom solution.
+
+    Environment Variables:
+        Store sensitive information like database credentials, API keys, or secrets in environment variables for security. Create a .env.local file and add your environment variables there. You can use a library like dotenv to load these variables into your app.
+
+Usage
+
+    Once the app is running, create an account or log in.
+    From the dashboard, you can create new invoices, edit existing ones, or mark them as paid.
+    Generate PDFs for invoices by clicking on the "Download PDF" button.
+
+Contributing
+
+Feel free to contribute to this project by opening issues or submitting pull requests. We welcome bug reports, feature requests, and improvements to the app.
+License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+Acknowledgments
+
+    This app was built using Next.js, Prisma, and SQLite.
+    The user interface is designed using Tailwind CSS.
+    PDF generation is achieved with libraries like pdf-lib.
+
+Author
+
+    Che
+
+Enjoy using the Invoice Generator App! If you have any questions or need assistance, please don't hesitate to contact us.

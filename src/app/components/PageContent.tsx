@@ -2,8 +2,11 @@ import React from "react";
 import { Container, Typography, Box, Paper } from "@mui/material";
 import SiteLogo from "./SiteLogo";
 import DocumentControls from "./DocumentControls";
+import prisma from "../db";
 
-const PageContent = () => {
+const PageContent = async () => {
+  const clients = prisma.client.findMany();
+
   return (
     <>
       <Paper
@@ -18,7 +21,11 @@ const PageContent = () => {
           transform: "translateY(-50%)",
         }}
         elevation={24}
-      ></Paper>
+      >
+        {(await clients).map((client) => (
+          <p>{client.name}</p>
+        ))}
+      </Paper>
       <DocumentControls></DocumentControls>
     </>
   );

@@ -2,11 +2,13 @@ import { Container, Typography, Box, Paper, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import SaveIcon from "@mui/icons-material/Save";
 
 const sidebarIcons = [
   [<DownloadIcon />],
   [<EditIcon />],
   [<ContentCopyIcon />],
+  [<SaveIcon />],
 ];
 
 const DocumentControls = () => {

@@ -1,17 +1,14 @@
-import PageContent from "./components/PageContent";
-import SideBarMenu from "./components/SideBarMenu";
-import styles from "./page.module.css";
-import { Container, Typography, Box } from "@mui/material";
+"use client";
+import { redirect } from "next/navigation";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
-export default function Home() {
-  return (
-    <main>
-      <Box sx={{ bgcolor: "snow", display: "flex", p: 0, m: 0 }}>
-        <SideBarMenu></SideBarMenu>
-        <Container sx={{ height: "100vh" }}>
-          <PageContent></PageContent>
-        </Container>
-      </Box>
-    </main>
-  );
-}
+const Home = () => {
+  const { user, error, isLoading } = useUser();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+  user ? redirect("/home") : null;
+  return <div>Hi</div>;
+};
+
+export default Home;

@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  address1 String
+  address2 String
+  picture String
+  invoices Invoice[]
+  clients Client[]
+  createAt DateTime @default(now())
+  updatedAT DateTime @updatedAt
+
+  @@unique([id, name, email, address1, address2])
+}
+
+model Client {
+  id String @id @default(uuid())
+  user User @relation(fields: [userID], references: [id], onDelete: Cascade)
+  userID String
+  name String
+  email String
+  address1 String
+  address2 String
+  createAt DateTime @default(now())
+  updatedAT DateTime @updatedAt
+  invoices Invoice[]
+
+  @@unique([id, name, email, address1, address2])
+}
+
+model Invoice {
+  id String @id @default(uuid())
+  user User @relation(fields: [userID, userName, userEmail, userAddress1, userAddress2], references: [id, name, email, address1, address2], onDelete: Cascade)
+  userID String
+  userName String
+  userEmail String
+  userAddress1 String
+  userAddress2 String
+  client Client @relation(fields: [clientID, clientName, clientEmail, clientAddress1, clientAddress2], references: [id, name, email, address1, address2])
+  clientID String
+  clientName String
+  clientEmail String
+  clientAddress1 String
+  clientAddress2 String
+  createAt DateTime @default(now())
+  updatedAT DateTime @updatedAt
+}
+

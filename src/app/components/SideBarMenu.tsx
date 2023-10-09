@@ -6,21 +6,37 @@ import SiteLogo from "./SiteLogo";
 
 const SideBarMenu = () => {
   const { user, error, isLoading } = useUser();
-
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
   return (
-    <Box sx={{ bgcolor: "lightblue", width: "300px" }}>
+    <Box
+      sx={{
+        bgcolor: "lightblue",
+        width: { lg: "300px", md: "100px", sm: "100px", xs: "100px" },
+        pt: 2,
+      }}
+    >
       <SiteLogo color="blue" bgcolor="lightblue"></SiteLogo>
       {user ? (
         <>
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "relative",
+              top: "-20px",
+            }}
+          >
             {user.nickname && (
               <Typography
                 sx={{
                   textAlign: "center",
                   py: 2,
+                  display: { lg: "block", md: "none", sm: "none", xs: "none" },
+                  color: "white",
+                  fontWeight: "700",
                 }}
               >
                 Welcome, {user.nickname}
@@ -37,7 +53,7 @@ const SideBarMenu = () => {
                 src={user.picture}
               />
             )}
-          </div>
+          </Box>
           <a href="/api/auth/logout">
             <Button>
               <Typography>Logout</Typography>

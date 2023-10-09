@@ -8,7 +8,12 @@ interface SiteLogoProps {
 }
 const SiteLogo = ({ color, bgcolor }: SiteLogoProps) => {
   return (
-    <Box sx={{ maxWidth: "300px" }}>
+    <Box
+      sx={{
+        maxWidth: "280px",
+        display: { lg: "block", md: "none", sm: "none", xs: "none" },
+      }}
+    >
       <Typography
         variant="h2"
         sx={{
@@ -18,6 +23,7 @@ const SiteLogo = ({ color, bgcolor }: SiteLogoProps) => {
           color: color,
           m: 2,
           zIndex: "1",
+          fontSize: "3rem",
         }}
       >
         Invoiceer
@@ -25,12 +31,13 @@ const SiteLogo = ({ color, bgcolor }: SiteLogoProps) => {
       <Typography
         sx={{
           position: "relative",
-          ml: "25%",
+          m: "auto",
           color: color,
           top: "-30px",
           bgcolor: bgcolor,
           zIndex: "99",
           width: "fit-content",
+          fontSize: "0.8rem",
         }}
       >
         Simplify, Organize, Prosper

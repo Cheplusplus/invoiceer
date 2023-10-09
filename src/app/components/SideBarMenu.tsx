@@ -95,13 +95,23 @@ const SideBarMenu = () => {
               alignItems: "center",
               position: "relative",
               textAlign: "center",
+              mt: "30px",
             }}
           >
             <nav>
-              {navItems.map((item) => {
+              {navItems.map((item, i) => {
                 return (
-                  <Typography>
-                    <Link href={item[1]}>{item[0]}</Link>
+                  <Typography sx={{ mt: "20px" }} key={i}>
+                    <Link
+                      href={item[1]}
+                      sx={{
+                        color: "white",
+                        textDecoration: "none",
+                        fontSize: "24px",
+                      }}
+                    >
+                      {item[0]}
+                    </Link>
                   </Typography>
                 );
               })}

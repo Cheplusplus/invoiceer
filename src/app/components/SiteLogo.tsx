@@ -12,6 +12,7 @@ const SiteLogo = ({ color, bgcolor }: SiteLogoProps) => {
       sx={{
         maxWidth: "280px",
         display: { lg: "block", md: "none", sm: "none", xs: "none" },
+        m: "0 auto",
       }}
     >
       <Typography
@@ -24,6 +25,7 @@ const SiteLogo = ({ color, bgcolor }: SiteLogoProps) => {
           m: 2,
           zIndex: "1",
           fontSize: "3rem",
+          padding: "10px",
         }}
       >
         Invoiceer

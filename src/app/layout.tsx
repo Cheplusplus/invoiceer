@@ -20,7 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <UserProvider>
-        <body style={{ padding: "0", margin: "0" }} className={inter.className}>
+        <body
+          style={{ padding: "0", margin: "0", height: "100%" }}
+          className={inter.className}
+        >
           <main>
             <Box
               sx={{
@@ -37,7 +40,13 @@ export default function RootLayout({
               }}
             >
               <SideBarMenu></SideBarMenu>
-              <Container sx={{ height: "100vh" }}>{children}</Container>
+              <Container
+                sx={{
+                  height: "100vh",
+                }}
+              >
+                {children}
+              </Container>
             </Box>
           </main>
         </body>

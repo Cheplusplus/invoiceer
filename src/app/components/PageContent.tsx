@@ -7,7 +7,8 @@ const PageContent = () => {
     <Paper
       sx={{
         maxWidth: "921px",
-        height: "90vh",
+        maxHeight: "90vh",
+        aspectRatio: "210/280",
         bgcolor: "white",
         m: "auto",
         position: "relative",

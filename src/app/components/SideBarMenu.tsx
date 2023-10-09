@@ -1,8 +1,25 @@
 "use client";
-
-import { Typography, Box, Button } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import {
+  Typography,
+  Box,
+  Button,
+  Link,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import SiteLogo from "./SiteLogo";
+
+const navItems = [
+  ["Dashboard", "#"],
+  ["Invoices", "#"],
+  ["Clients", "#"],
+  ["Profile", "#"],
+];
 
 const SideBarMenu = () => {
   const { user, error, isLoading } = useUser();
@@ -15,9 +32,12 @@ const SideBarMenu = () => {
         bgcolor: "lightblue",
         width: { lg: "300px", md: "100px", sm: "100px", xs: "100px" },
         pt: 2,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
       }}
     >
-      <SiteLogo color="blue" bgcolor="lightblue"></SiteLogo>
+      <SiteLogo color="#387597" bgcolor="lightblue"></SiteLogo>
       {user ? (
         <>
           <Box
@@ -34,7 +54,12 @@ const SideBarMenu = () => {
                 sx={{
                   textAlign: "center",
                   py: 2,
-                  display: { lg: "block", md: "none", sm: "none", xs: "none" },
+                  display: {
+                    lg: "block",
+                    md: "none",
+                    sm: "none",
+                    xs: "none",
+                  },
                   color: "white",
                   fontWeight: "700",
                 }}
@@ -54,18 +79,43 @@ const SideBarMenu = () => {
               />
             )}
           </Box>
-          <a href="/api/auth/logout">
-            <Button>
-              <Typography>Logout</Typography>
-            </Button>
-          </a>
+
+          <Button
+            href="/api/auth/logout"
+            sx={{ m: "0 auto", width: "60%" }}
+            variant="outlined"
+          >
+            <Typography>Logout</Typography>
+          </Button>
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "relative",
+              textAlign: "center",
+            }}
+          >
+            <nav>
+              {navItems.map((item) => {
+                return (
+                  <Typography>
+                    <Link href={item[1]}>{item[0]}</Link>
+                  </Typography>
+                );
+              })}
+            </nav>
+          </Box>
         </>
       ) : (
-        <a href="/api/auth/login">
-          <Button>
-            <Typography>Login</Typography>
-          </Button>
-        </a>
+        <Button
+          href="/api/auth/login"
+          sx={{ m: "0 auto", width: "60%" }}
+          variant="outlined"
+        >
+          <Typography>Login</Typography>
+        </Button>
       )}
     </Box>
   );

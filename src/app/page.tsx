@@ -7,7 +7,7 @@ const Home = () => {
   const { user, error, isLoading } = useUser();
   user ? redirect("/home") : null;
 
-  return <></>;
+  return <>Hiiiii</>;
 };
 
 export default Home;

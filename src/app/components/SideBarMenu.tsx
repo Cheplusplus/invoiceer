@@ -43,7 +43,7 @@ const SideBarMenu = () => {
                   top: "-20px",
                 }}
               >
-                {user.name && (
+                {user.nickname && (
                   <Typography
                     sx={{
                       textAlign: "center",
@@ -58,7 +58,7 @@ const SideBarMenu = () => {
                       fontWeight: "700",
                     }}
                   >
-                    Welcome, {user.name}
+                    Welcome, {user.nickname}
                   </Typography>
                 )}
                 {user.picture && (

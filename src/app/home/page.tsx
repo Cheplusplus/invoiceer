@@ -1,4 +1,4 @@
-import { getSession } from "@auth0/nextjs-auth0";
+import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import PageContent from "../components/PageContent";
 import prisma from "../db";
 import { redirect } from "next/navigation";
@@ -16,4 +16,4 @@ const Home = async () => {
   return <PageContent user={appUser} />;
 };
 
-export default Home;
+export default withPageAuthRequired(Home, { returnTo: "/home" });

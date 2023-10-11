@@ -5,16 +5,19 @@ import SiteLogo from "./SiteLogo";
 
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 const navItems = [
-  ["Dashboard", "/home"],
-  ["Invoices", "#"],
+  ["Dashboard", "/dashboard"],
+  ["Invoices", "/invoices"],
   ["Clients", "/clients"],
-  ["Profile", "#"],
+  ["Profile", "/profile"],
 ];
 
 const SideBarMenu = () => {
   const { user, error, isLoading } = useUser();
+  const pathname = usePathname();
 
   if (error) return <div>{error.message}</div>;
 
@@ -90,23 +93,44 @@ const SideBarMenu = () => {
                   position: "relative",
                   textAlign: "justify",
                   mt: "30px",
+                  width: "100%",
                 }}
               >
-                <nav>
+                <nav
+                  style={{
+                    width: "100%",
+                  }}
+                >
                   {navItems.map((item, i) => {
                     return (
-                      <Typography sx={{ mt: "20px" }} key={i}>
-                        <Link
-                          href={item[1]}
+                      <Link
+                        href={item[1]}
+                        sx={{
+                          mt: "20px",
+                          mx: "auto",
+
+                          textDecoration: "none",
+                        }}
+                      >
+                        <Typography
                           sx={{
                             color: "white",
-                            textDecoration: "none",
                             fontSize: "24px",
+                            textAlign: "left",
+                            pl: "90px",
+                            borderBottom: "1px solid lightgrey",
+                            ":hover": { bgcolor: "#387597" },
                           }}
+                          style={
+                            pathname === item[1]
+                              ? { backgroundColor: "#76a8c4" }
+                              : {}
+                          }
+                          key={i}
                         >
                           {item[0]}
-                        </Link>
-                      </Typography>
+                        </Typography>
+                      </Link>
                     );
                   })}
                 </nav>

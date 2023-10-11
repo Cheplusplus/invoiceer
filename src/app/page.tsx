@@ -5,9 +5,9 @@ import { redirect } from "next/navigation";
 
 const Home = () => {
   const { user, error, isLoading } = useUser();
-  user ? redirect("/home") : null;
+  user ? redirect("/dashboard") : null;
 
-  return <>Hiiiii</>;
+  return <>Uwuuuu :3</>;
 };
 
 export default Home;

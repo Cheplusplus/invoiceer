@@ -25,8 +25,13 @@ const PageContent = ({ user }: PageContentProps) => {
           bgcolor: "white",
           m: "auto",
           position: "relative",
-          top: "50%",
-          transform: "translateY(-50%)",
+          top: { lg: "50%", md: "50px", sm: "10px", xs: "5px" },
+          transform: {
+            lg: "translateY(-50%)",
+            md: '"translateY(0)"',
+            sm: '"translateY(0)"',
+            xs: "translateY(0)",
+          },
         }}
         elevation={16}
       >

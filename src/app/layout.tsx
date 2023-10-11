@@ -53,6 +53,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
               },
               p: 0,
               m: 0,
+              mr: "48px",
             }}
           >
             <SideBarMenu />

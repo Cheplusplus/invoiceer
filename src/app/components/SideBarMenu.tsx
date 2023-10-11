@@ -4,8 +4,6 @@ import { Typography, Box, Button, Link } from "@mui/material";
 import SiteLogo from "./SiteLogo";
 
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { useState } from "react";
-import { useRouter } from "next/router";
 import { usePathname } from "next/navigation";
 
 const navItems = [
@@ -25,7 +23,7 @@ const SideBarMenu = () => {
     <Box
       sx={{
         bgcolor: "lightblue",
-        width: { lg: "300px", md: "100px", sm: "100px", xs: "100px" },
+        minWidth: { lg: "300px", md: "25px", sm: "25px", xs: "100px" },
         pt: 2,
         display: "flex",
         flexDirection: "column",

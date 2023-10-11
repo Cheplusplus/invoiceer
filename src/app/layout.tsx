@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import { Container, Box } from "@mui/material";
 import SideBarMenu from "./components/SideBarMenu";
 import { getSession } from "@auth0/nextjs-auth0";
-import { redirect } from "next/navigation";
 import prisma from "./db";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,7 +21,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     const appUser = await prisma.user.findUnique({
       where: { id: user.sub },
     });
-    console.log(appUser);
+
     if (!appUser) {
       await prisma.user.create({
         data: {

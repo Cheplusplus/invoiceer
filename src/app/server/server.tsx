@@ -10,7 +10,7 @@ export const createNewClient = async (data: FormData, user: UserProfile) => {
   const email = data.get("email")?.valueOf().toString() || ""
   const address1 = data.get("address1")?.valueOf().toString() || ""
   const address2 = data.get("address2")?.valueOf().toString() || ""
-  if (!user.sub) return
+  if (!user.sub) throw new Error("Unreckognized user - Unable to create entry")
   const c: Client = {
     userID: user.sub,
     name: name,
@@ -18,15 +18,25 @@ export const createNewClient = async (data: FormData, user: UserProfile) => {
     address1: address1,
     address2: address2,
   }
-  prisma.client.create({ data: c }).then((client) => console.log(client))
+  prisma.client.create({ data: c }).then((client) => {
+    console.log("Added Client:")
+    console.log(client)
+  })
 }
 
 export const getClients = async (): Promise<Client[]> => {
   const session = await getSession()
   const user = session?.user || null
 
-  return await prisma.client.findMany({
+  return prisma.client.findMany({
     where: { userID: user?.sub },
+  })
+}
+
+export const deleteClient = async (id: string) => {
+  prisma.client.delete({ where: { id: id } }).then((client) => {
+    console.log("Deleted Client:")
+    console.log(client)
   })
 }
 
@@ -46,8 +56,4 @@ export const getAppUser = async () => {
 export const getPathname = () => {
   const headersList = headers()
   return headersList.get("referer") || ""
-}
-
-export const test = async () => {
-  return await "Helllooo"
 }

@@ -6,8 +6,8 @@ const ClientsPage = async () => {
   const clients = await getClients()
   return (
     <>
-      <ClientsList clients={clients}></ClientsList>
       <ClientsForm></ClientsForm>
+      <ClientsList clients={clients}></ClientsList>
     </>
   )
 }

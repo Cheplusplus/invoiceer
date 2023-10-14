@@ -1,17 +1,17 @@
-import { Container, Typography, Box, Paper } from "@mui/material";
-import DocumentControls from "./DocumentControls";
+import { Paper } from "@mui/material"
+import DocumentControls from "./DocumentControls"
 
 interface PageContentProps {
   user: {
-    id: string;
-    name: string;
-    email: string;
-    address1: string | null;
-    address2: string | null;
-    picture: string | null;
-    createAt: Date;
-    updatedAT: Date;
-  } | null;
+    id: string
+    name: string
+    email: string
+    address1: string | null
+    address2: string | null
+    picture: string | null
+    createAt: Date
+    updatedAT: Date
+  } | null
 }
 
 const PageContent = ({ user }: PageContentProps) => {
@@ -39,7 +39,7 @@ const PageContent = ({ user }: PageContentProps) => {
       </Paper>
       <DocumentControls></DocumentControls>
     </>
-  );
-};
+  )
+}
 
-export default PageContent;
+export default PageContent

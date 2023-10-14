@@ -1,6 +1,5 @@
 "use server"
 
-import { UserProfile } from "@auth0/nextjs-auth0/client"
 import { getSession } from "@auth0/nextjs-auth0"
 import { headers } from "next/headers"
 import prisma from "../db"
@@ -53,11 +52,8 @@ export const getUser = async () => {
 }
 
 export const getAppUser = async () => {
-  const session = await getSession()
-  const user = session?.user || null
-  return await prisma.user.findUnique({
-    where: { id: user?.sub },
-  })
+  const user = await getUser()
+  return getWithIDConstructor(prisma.user.findUnique)(user?.sub)
 }
 
 export const getPathname = () => {
@@ -65,26 +61,23 @@ export const getPathname = () => {
   return "/" + headersList.get("referer")?.split("/")[3] || ""
 }
 
+export const getObjectFromForm = <T extends {}>(data: FormData): T => {
+  let t = {}
+  for (const pair of data.entries()) {
+    const y = { [pair[0]]: pair[1] }
+    t = { ...t, ...y }
+  }
+  return t as T
+}
+
 export const createClient = createConstructor(prisma.client.create, "Client")
 export const deleteClient = deleteConstructor(prisma.client.delete, "Client")
-export const getAllClients = getManyFromUserIDConstructor(
-  prisma.client.findMany
-)
+export const getAllClients = getManyFromUserIDConstructor(prisma.client.findMany)
 export const getClientWithID = getWithIDConstructor(prisma.client.findUnique)
 export const updateClient = updateConstructor(prisma.client.update)
 
-export const createNewClient = async (data: FormData, user: UserProfile) => {
-  const name = data.get("name")?.valueOf().toString() || ""
-  const email = data.get("email")?.valueOf().toString() || ""
-  const address1 = data.get("address1")?.valueOf().toString() || ""
-  const address2 = data.get("address2")?.valueOf().toString() || ""
-  if (!user.sub) throw new Error("Unreckognized user - Unable to create entry")
-  const c: Client = {
-    userID: user.sub,
-    name: name,
-    email: email,
-    address1: address1,
-    address2: address2,
-  }
-  createClient(c)
-}
+export const createInvoice = createConstructor(prisma.invoice.create, "Invoice")
+export const deleteInvoice = deleteConstructor(prisma.invoice.delete, "Invoice")
+export const getAllInvoices = getManyFromUserIDConstructor(prisma.invoice.findMany)
+export const getInvoiceWithID = getWithIDConstructor(prisma.invoice.findUnique)
+export const updateInvoice = updateConstructor(prisma.invoice.update)

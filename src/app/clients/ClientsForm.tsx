@@ -1,20 +1,17 @@
 "use client"
 
-import { useUser } from "@auth0/nextjs-auth0/client"
-import { createNewClient } from "../server/server"
+import { createClient, getObjectFromForm, getAppUser } from "../actions/actions"
 import { useRouter } from "next/dist/client/components/navigation"
 
 const ClientsForm = () => {
-  const { user, error, isLoading } = useUser()
   const router = useRouter()
-  if (!user) return <></>
-  if (!user.sub) return <></>
 
   return (
     <>
       <form
         action={(e) => {
-          createNewClient(e, user)
+          createClient(getObjectFromForm<Client>(e))
+          console.log(getAppUser())
           router.refresh()
         }}
       >

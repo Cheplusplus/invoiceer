@@ -18,6 +18,7 @@ declare global {
   }
 
   interface Invoice {
+    id?: string
     userID: string
     userName: string
     userEmail: string
@@ -29,6 +30,15 @@ declare global {
     clientAddress1: string
     clientAddress2: string
     paid: boolean
+  }
+
+  interface InvoiceItem {
+    id?: string
+    invoiceID: string
+    description: string
+    costInt: number
+    costDec: number
+    quantity: number
   }
 }
 export {}

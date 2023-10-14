@@ -1,6 +1,7 @@
 "use client"
-import { deleteClient } from "../server/server"
+import { deleteClient } from "../actions/actions"
 import { useRouter } from "next/dist/client/components/navigation"
+import DeleteIcon from "@mui/icons-material/Delete"
 
 interface ClientsListProps {
   clients: Client[]
@@ -15,10 +16,12 @@ const ClientsList = ({ clients }: ClientsListProps) => {
             <li key={i}>{client.name}</li>
             <button
               onClick={() => {
-                deleteClient(client.id ? client.id : "")
+                deleteClient(client.id || "")
                 router.refresh()
               }}
-            ></button>
+            >
+              {<DeleteIcon />}
+            </button>
           </>
         )
       })}

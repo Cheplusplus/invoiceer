@@ -1,6 +1,6 @@
 import ClientsList from "./ClientsList"
 import ClientsForm from "./ClientsForm"
-import { getAllClients } from "../server/server"
+import { getAllClients } from "../actions/actions"
 
 const ClientsPage = async () => {
   const clients = await getAllClients()

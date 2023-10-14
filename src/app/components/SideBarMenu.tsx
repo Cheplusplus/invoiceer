@@ -1,9 +1,8 @@
 import { Typography, Box, Button } from "@mui/material"
 import SiteLogo from "./SiteLogo"
-import { getUser } from "../server/server"
+import { getUser } from "../actions/actions"
 import NavBar from "./NavBar"
 
-const homeURL = "http://localhost:3000"
 const navItems: [string, string][] = [
   ["Dashboard", "/dashboard"],
   ["Invoices", "/invoices"],
@@ -70,11 +69,7 @@ const SideBarMenu = async () => {
               )}
             </Box>
 
-            <Button
-              href="/api/auth/logout"
-              sx={{ m: "0 auto", width: "60%" }}
-              variant="outlined"
-            >
+            <Button href="/api/auth/logout" sx={{ m: "0 auto", width: "60%" }} variant="outlined">
               <Typography>Logout</Typography>
             </Button>
 
@@ -93,11 +88,7 @@ const SideBarMenu = async () => {
             </Box>
           </>
         ) : (
-          <Button
-            href="/api/auth/login"
-            sx={{ m: "0 auto", width: "60%" }}
-            variant="outlined"
-          >
+          <Button href="/api/auth/login" sx={{ m: "0 auto", width: "60%" }} variant="outlined">
             <Typography>Login</Typography>
           </Button>
         )}

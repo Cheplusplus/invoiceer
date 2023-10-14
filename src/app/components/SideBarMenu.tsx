@@ -1,8 +1,10 @@
-import { Typography, Box, Button, Link } from "@mui/material"
+import { Typography, Box, Button } from "@mui/material"
 import SiteLogo from "./SiteLogo"
-import { getPathname, getUser } from "../server/server"
+import { getUser } from "../server/server"
+import NavBar from "./NavBar"
 
-const navItems = [
+const homeURL = "http://localhost:3000"
+const navItems: [string, string][] = [
   ["Dashboard", "/dashboard"],
   ["Invoices", "/invoices"],
   ["Clients", "/clients"],
@@ -11,7 +13,6 @@ const navItems = [
 
 const SideBarMenu = async () => {
   const user = await getUser()
-  const pathname = getPathname()
 
   return (
     <>
@@ -88,45 +89,7 @@ const SideBarMenu = async () => {
                 width: "100%",
               }}
             >
-              <nav
-                style={{
-                  width: "100%",
-                }}
-              >
-                {navItems.map((item, i) => {
-                  return (
-                    <Link
-                      href={item[1]}
-                      key={i}
-                      sx={{
-                        mt: "20px",
-                        mx: "auto",
-
-                        textDecoration: "none",
-                      }}
-                    >
-                      <Typography
-                        sx={{
-                          color: "white",
-                          fontSize: "24px",
-                          textAlign: "left",
-                          pl: "90px",
-                          borderBottom: "1px solid lightgrey",
-                          ":hover": { bgcolor: "#387597" },
-                        }}
-                        style={
-                          pathname === item[1]
-                            ? { backgroundColor: "#76a8c4" }
-                            : {}
-                        }
-                        key={i}
-                      >
-                        {item[0]}
-                      </Typography>
-                    </Link>
-                  )
-                })}
-              </nav>
+              <NavBar navItems={navItems} style={{ width: "100%" }}></NavBar>
             </Box>
           </>
         ) : (

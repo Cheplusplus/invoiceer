@@ -1,12 +1,10 @@
 "use client"
 
 import { useUser } from "@auth0/nextjs-auth0/client"
-import { createNewClient, getClients } from "../server/server"
+import { createNewClient } from "../server/server"
 import { useRouter } from "next/dist/client/components/navigation"
-import useStateFromServer from "../hooks/useStateFromServer"
 
 const ClientsForm = () => {
-  // const [clients, setClients] = useStateFromServer<Client[]>()
   const { user, error, isLoading } = useUser()
   const router = useRouter()
   if (!user) return <></>

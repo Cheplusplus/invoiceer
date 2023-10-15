@@ -4,9 +4,11 @@ import { getSession } from "@auth0/nextjs-auth0"
 import { headers } from "next/headers"
 import prisma from "../db"
 
-const createConstructor = (fn: Function, objType: string) => {
-  return async (obj: {}) => {
-    fn({ data: obj }).then((c: {}) => {
+const createConstructor = <T,>(fn: Function, objType: string) => {
+  return async (obj: T) => {
+    const res = await obj
+    const user = await getUser()
+    fn({ data: { ...res, userID: user?.sub } }).then((c: T) => {
       console.log(`Added ${objType}:`)
       console.log(c)
     })
@@ -38,8 +40,7 @@ const getWithIDConstructor = (fn: Function) => {
 }
 
 const updateConstructor = (fn: Function) => {
-  const update = { name: "Johannes" }
-  return async (id: string) => {
+  return async (id: string, update: {}) => {
     await fn({ where: { id: id }, data: { ...update } }).then(() => {
       console.log(id + " updated!")
     })
@@ -70,13 +71,13 @@ export const getObjectFromForm = <T extends {}>(data: FormData): T => {
   return t as T
 }
 
-export const createClient = createConstructor(prisma.client.create, "Client")
+export const createClient = createConstructor<Client>(prisma.client.create, "Client")
 export const deleteClient = deleteConstructor(prisma.client.delete, "Client")
 export const getAllClients = getManyFromUserIDConstructor(prisma.client.findMany)
 export const getClientWithID = getWithIDConstructor(prisma.client.findUnique)
 export const updateClient = updateConstructor(prisma.client.update)
 
-export const createInvoice = createConstructor(prisma.invoice.create, "Invoice")
+export const createInvoice = createConstructor<Invoice>(prisma.invoice.create, "Invoice")
 export const deleteInvoice = deleteConstructor(prisma.invoice.delete, "Invoice")
 export const getAllInvoices = getManyFromUserIDConstructor(prisma.invoice.findMany)
 export const getInvoiceWithID = getWithIDConstructor(prisma.invoice.findUnique)

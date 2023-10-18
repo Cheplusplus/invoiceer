@@ -7,6 +7,7 @@ import { getSession } from "@auth0/nextjs-auth0"
 import prisma from "./db"
 import Head from "next/head"
 import "../app/globals.css"
+import { createUser, getAppUser } from "./actions/actions"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -20,18 +21,14 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const user = session?.user || null
 
   if (user) {
-    const appUser = await prisma.user.findUnique({
-      where: { id: user.sub },
-    })
+    const appUser = await getAppUser()
 
     if (!appUser) {
-      await prisma.user.create({
-        data: {
-          id: user.sub,
-          name: user.name,
-          email: user.email,
-          picture: user.picture,
-        },
+      await createUser({
+        id: user.sub,
+        name: user.name,
+        email: user.email,
+        picture: user.picture,
       })
     }
   }

@@ -1,20 +1,7 @@
 import { Paper } from "@mui/material"
 import DocumentControls from "./DocumentControls"
 
-interface PageContentProps {
-  user: {
-    id: string
-    name: string
-    email: string
-    address1: string | null
-    address2: string | null
-    picture: string | null
-    createAt: Date
-    updatedAT: Date
-  } | null
-}
-
-const PageContent = ({ user }: PageContentProps) => {
+const PageContent = () => {
   return (
     <>
       <Paper
@@ -35,9 +22,8 @@ const PageContent = ({ user }: PageContentProps) => {
         }}
         elevation={16}
       >
-        {user?.name}
+        Something
       </Paper>
-      <DocumentControls></DocumentControls>
     </>
   )
 }

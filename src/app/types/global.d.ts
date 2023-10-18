@@ -12,6 +12,7 @@ declare global {
     id?: string
     userID: string
     name: string
+    company?: string
     email: string
     address1: string
     address2: string
@@ -20,16 +21,8 @@ declare global {
   interface Invoice {
     id?: string
     userID: string
-    userName: string
-    userEmail: string
-    userAddress1: string
-    userAddress2: string
     clientID: string
-    clientName: string
-    clientEmail: string
-    clientAddress1: string
-    clientAddress2: string
-    paid: boolean
+    paid?: boolean
   }
 
   interface InvoiceItem {

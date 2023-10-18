@@ -1,17 +1,32 @@
-import { Container, Typography, Box, Paper, Button } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DownloadIcon from "@mui/icons-material/Download";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import SaveIcon from "@mui/icons-material/Save";
+import { Container, Typography, Box, Paper, Button } from "@mui/material"
+import EditIcon from "@mui/icons-material/Edit"
+import DownloadIcon from "@mui/icons-material/Download"
+import ContentCopyIcon from "@mui/icons-material/ContentCopy"
+import SaveIcon from "@mui/icons-material/Save"
+import { Dispatch, ReactElement, SetStateAction } from "react"
+import DeleteIcon from "@mui/icons-material/Delete"
+import { deleteInvoice } from "../actions/actions"
+import { useRouter } from "next/dist/client/components/navigation"
 
-const sidebarIcons = [
-  [<DownloadIcon />],
-  [<EditIcon />],
-  [<ContentCopyIcon />],
-  [<SaveIcon />],
-];
+interface DocumentControlsProps {
+  invoiceID: string
+  setInvoicesPage: Dispatch<SetStateAction<"home" | "add-invoice" | "display-invoice">>
+}
+const DocumentControls = ({ invoiceID, setInvoicesPage }: DocumentControlsProps) => {
+  const router = useRouter()
 
-const DocumentControls = () => {
+  const handleDelete = () => {
+    deleteInvoice(invoiceID)
+    router.refresh()
+    setInvoicesPage("home")
+  }
+  const sidebarIcons: [ReactElement, Function?, string?][] = [
+    [<DownloadIcon />],
+    [<EditIcon />],
+    [<ContentCopyIcon />],
+    [<SaveIcon />, setInvoicesPage, "home"],
+    [<DeleteIcon />, handleDelete],
+  ]
   return (
     <Box
       sx={{
@@ -27,8 +42,9 @@ const DocumentControls = () => {
         pt: 4,
       }}
     >
-      {sidebarIcons.map((icon, i) => (
+      {sidebarIcons.map((item, i) => (
         <Button
+          onClick={() => (item[1] ? item[1](item[2] || undefined) : undefined)}
           key={i}
           variant="outlined"
           sx={{
@@ -41,11 +57,11 @@ const DocumentControls = () => {
             borderColor: "#646464",
           }}
         >
-          {icon}
+          {item[0]}
         </Button>
       ))}
     </Box>
-  );
-};
+  )
+}
 
-export default DocumentControls;
+export default DocumentControls

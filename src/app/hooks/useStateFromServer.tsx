@@ -8,10 +8,7 @@ const useStateFromServer = <T,>() => {
       setState(data)
     })
   }
-  const items: [Promise<T> | undefined, (data: Promise<T>) => void] = [
-    state,
-    setStateFromServer,
-  ]
+  const items: [Promise<T> | undefined, (data: Promise<T>) => void] = [state, setStateFromServer]
   return items
 }
 export default useStateFromServer

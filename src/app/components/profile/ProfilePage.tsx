@@ -1,5 +1,5 @@
 import React from "react"
-import { getAppUser } from "../actions/actions"
+import { getAppUser } from "../../actions/actions"
 
 const ProfilePage = async () => {
   const user = await getAppUser()

@@ -1,7 +1,10 @@
 import { Paper } from "@mui/material"
-import DocumentControls from "./DocumentControls"
+import { ReactNode } from "react"
 
-const PageContent = () => {
+interface PageContentProps {
+  children: ReactNode[]
+}
+const PageContent = ({ children }: PageContentProps) => {
   return (
     <>
       <Paper
@@ -22,7 +25,7 @@ const PageContent = () => {
         }}
         elevation={16}
       >
-        Something
+        {children}
       </Paper>
     </>
   )

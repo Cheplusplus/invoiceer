@@ -8,6 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import { deleteInvoice } from "../actions/actions"
 import { useRouter } from "next/dist/client/components/navigation"
 
+
 interface DocumentControlsProps {
   invoiceID: string
   setInvoicesPage: Dispatch<SetStateAction<"home" | "add-invoice" | "display-invoice">>
@@ -16,8 +17,8 @@ const DocumentControls = ({ invoiceID, setInvoicesPage }: DocumentControlsProps)
   const router = useRouter()
 
   const handleDelete = () => {
-    deleteInvoice(invoiceID)
-    router.refresh()
+    deleteInvoice(invoiceID) // ----------->> Update to useOptimistic!
+    router.refresh() 
     setInvoicesPage("home")
   }
   const sidebarIcons: [ReactElement, Function?, string?][] = [

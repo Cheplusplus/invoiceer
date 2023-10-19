@@ -1,9 +1,10 @@
 "use client"
 import { useState } from "react"
-import { InvoicesController, InvoicesList, InvoiceForm } from "./InvoicesComponents"
-import DashboardPage from "../dashboard/DashboardPage"
+import { InvoicesController, InvoicesList } from "./InvoicesComponents"
 import { Paper } from "@mui/material"
-import DocumentControls from "../components/DocumentControls"
+import DocumentControls from "../DocumentControls"
+import { InvoiceView } from "./InvoiceView"
+import { InvoiceForm } from "./InvoiceForm"
 
 interface PagesManagerProps {
   invoices: Invoice[]
@@ -12,6 +13,8 @@ interface PagesManagerProps {
 export const PagesManager = ({ invoices, clients }: PagesManagerProps) => {
   const [pageState, setPageState] = useState<"home" | "add-invoice" | "display-invoice">("home")
   const [invoiceID, setInvoiceID] = useState("")
+  const [clientID, setClientID] = useState("")
+  const [invoiceItems, setInvoiceItems] = useState<InvoiceItem[]>([])
   return (
     <>
       {pageState === "home" ? (
@@ -44,7 +47,7 @@ export const PagesManager = ({ invoices, clients }: PagesManagerProps) => {
         </Paper>
       ) : pageState === "display-invoice" ? (
         <>
-          <DashboardPage />
+          <InvoiceView />
           <DocumentControls setInvoicesPage={setPageState} invoiceID={invoiceID}></DocumentControls>
         </>
       ) : null}

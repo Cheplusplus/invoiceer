@@ -6,3 +6,14 @@
 .flex-1 {
   flex: 1;
 }
+
+.card-button {
+  aspect-ratio: 1;
+  height: fit-content;
+  margin-right: 0.2rem;
+}
+
+.card-button-holder {
+  position: relative;
+  top: 1rem;
+}

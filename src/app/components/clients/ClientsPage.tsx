@@ -1,6 +1,7 @@
-import { ClientsForm, ClientsList } from "./ClientsComponents"
-import { getAllClients } from "../actions/actions"
+import ClientsList from "./ClientsList"
+import { getAllClients } from "../../actions/actions"
 import { Box, Paper } from "@mui/material"
+import ClientsForm from "./ClientsForm"
 
 const ListItems = () => {
   return <></>
@@ -26,7 +27,7 @@ const ClientsPage = async () => {
           display: "flex",
         }}
       >
-        <ClientsForm>{[<ListItems />]}</ClientsForm>
+        <ClientsForm></ClientsForm>
         <ClientsList clients={clients}></ClientsList>
       </Box>
     </Paper>

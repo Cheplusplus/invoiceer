@@ -2,7 +2,11 @@ import PageContent from "../PageContent"
 import { Dispatch, SetStateAction } from "react"
 
 const DashboardPage = () => {
-  return <PageContent children={[]} />
+  return (
+    <PageContent>
+      <></>
+    </PageContent>
+  )
 }
 
 export default DashboardPage

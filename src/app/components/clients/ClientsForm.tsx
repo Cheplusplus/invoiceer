@@ -4,16 +4,17 @@
  * Form for collecting details of a new client to be created.
  */
 
-import { Box, Button } from "@mui/material"
+import { Box, Button, Input, InputLabel } from "@mui/material"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { createClient } from "../../actions/actions"
+import { styles } from "./clients.styles"
 
 const ClientsForm = () => {
   const router = useRouter()
   const [isSubmitTrue, setIsSubmitTrue] = useState(false)
-  const { register, control, handleSubmit, reset, formState } = useForm()
+  const { register, handleSubmit, reset, formState } = useForm()
 
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
@@ -23,33 +24,25 @@ const ClientsForm = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          mt: "40px",
-          maxWidth: "150px",
-        }}
-      >
+      <Box sx={styles.clientFormStyle}>
         <form
-          id="client-form"
           onSubmit={handleSubmit((e) => {
             createClient(e as Client)
             router.refresh()
             setIsSubmitTrue(!isSubmitTrue)
           })}
         >
-          <label>Names</label>
-          <input {...register("name")}></input>
+          <InputLabel>Names</InputLabel>
+          <Input {...register("name")}></Input>
 
-          <label>Email</label>
-          <input {...register("email")}></input>
+          <InputLabel>Email</InputLabel>
+          <Input {...register("email")}></Input>
 
-          <label>Address1</label>
-          <input {...register("address1")}></input>
+          <InputLabel>Address1</InputLabel>
+          <Input {...register("address1")}></Input>
 
-          <label>Address2</label>
-          <input {...register("address2")}></input>
+          <InputLabel>Address2</InputLabel>
+          <Input {...register("address2")}></Input>
           <Button type="submit" variant="contained" sx={{ mt: 1 }}>
             Add Client
           </Button>

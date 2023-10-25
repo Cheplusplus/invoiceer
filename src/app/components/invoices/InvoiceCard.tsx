@@ -2,25 +2,30 @@ import { useRouter } from "next/dist/client/components/navigation"
 import { useState } from "react"
 import { getObjectFromForm } from "../../utils/utils"
 import { deleteInvoice, updateInvoice } from "../../actions/actions"
-import { Button } from "@mui/material"
+import { Button, Typography, Box, Input, ListItem } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import CheckIcon from "@mui/icons-material/Check"
+import styles from "./invoices.module.css"
 
+/**
+ * The DisplayMode and EditMode components are swapped out when
+ * the user attempts to edit the content on the card.
+ */
 interface EditModeProps {
   invoice: Invoice
 }
 const DisplayMode = ({ invoice }: EditModeProps) => {
   return (
     <>
-      <div className="flex-col flex-1">
-        <p>{invoice.id}</p>
-        <p>{invoice.id}</p>
-      </div>
-      <div className="flex-col flex-1">
-        <p>{invoice.id}</p>
-        <p>{invoice.id}</p>
-      </div>
+      <Box className="flex-col flex-1">
+        <Typography variant="body1">{invoice.id}</Typography>
+        <Typography variant="body1">{invoice.id}</Typography>
+      </Box>
+      <Box className="flex-col flex-1">
+        <Typography variant="body1">{invoice.id}</Typography>
+        <Typography variant="body1">{invoice.id}</Typography>
+      </Box>
     </>
   )
 }
@@ -31,20 +36,20 @@ interface DisplayModeProps {
 const EditMode = ({ invoice }: DisplayModeProps) => {
   return (
     <>
-      <div className="flex-col flex-1">
-        <input name="name" defaultValue={invoice.id}></input>
-        <input name="email" defaultValue={invoice.id}></input>
-      </div>
-      <div className="flex-col flex-1">
-        <input name="address1" defaultValue={invoice.id}></input>
-        <input name="address2" defaultValue={invoice.id}></input>
-      </div>
+      <Box className="flex-col flex-1">
+        <Input name="name" defaultValue={invoice.id}></Input>
+        <Input name="email" defaultValue={invoice.id}></Input>
+      </Box>
+      <Box className="flex-col flex-1">
+        <Input name="address1" defaultValue={invoice.id}></Input>
+        <Input name="address2" defaultValue={invoice.id}></Input>
+      </Box>
     </>
   )
 }
 
 /**
- * The card which the client is displayed on and hold the delete and edit buttons.
+ * The main component which holds the content of the card.
  */
 interface InvoiceCardProps {
   invoice: Invoice
@@ -63,38 +68,16 @@ const InvoiceCard = ({ invoice }: InvoiceCardProps) => {
         router.refresh()
       }}
     >
-      <li
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          borderBottom: "2px solid black",
-          minHeight: "110px",
-        }}
-      >
+      <ListItem className={styles.cardLayout}>
         {isEditMode ? <EditMode invoice={invoice} /> : <DisplayMode invoice={invoice} />}
-        <div style={{ position: "relative", top: "35px" }}>
-          <Button
-            variant="outlined"
-            style={{
-              minWidth: 0,
-              padding: 4,
-              aspectRatio: "1",
-              height: "fit-content",
-              marginRight: 6,
-            }}
-            type="submit"
-          >
+        <Box className={styles.cardButtonHolder}>
+          <Button variant="outlined" className={styles.cardButton} type="submit">
             {!isEditMode ? <EditIcon /> : <CheckIcon />}
           </Button>
 
           <Button
             variant="outlined"
-            style={{
-              minWidth: 0,
-              padding: 4,
-              aspectRatio: "1",
-              height: "fit-content",
-            }}
+            className={styles.cardButton}
             onClick={() => {
               deleteInvoice(invoice.id ? invoice.id : "")
               router.refresh()
@@ -102,8 +85,8 @@ const InvoiceCard = ({ invoice }: InvoiceCardProps) => {
           >
             {<DeleteIcon />}
           </Button>
-        </div>
-      </li>
+        </Box>
+      </ListItem>
     </form>
   )
 }

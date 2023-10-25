@@ -1,11 +1,7 @@
 import ClientsList from "./ClientsList"
 import { getAllClients } from "../../actions/actions"
-import { Box, Paper } from "@mui/material"
+import { Box, Paper, Typography } from "@mui/material"
 import ClientsForm from "./ClientsForm"
-
-const ListItems = () => {
-  return <></>
-}
 
 const ClientsPage = async () => {
   const clients = await getAllClients()
@@ -21,7 +17,7 @@ const ClientsPage = async () => {
       }}
       elevation={16}
     >
-      <h1>Clients</h1>
+      <Typography variant="h1">Clients</Typography>
       <Box
         sx={{
           display: "flex",

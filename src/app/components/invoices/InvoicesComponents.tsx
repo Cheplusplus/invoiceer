@@ -1,20 +1,21 @@
 "use client"
 
-import { Button, Box } from "@mui/material"
+import { Button, Box, List } from "@mui/material"
 import { Dispatch, SetStateAction } from "react"
 import InvoiceCard from "./InvoiceCard"
+import styles from "./invoices.module.css"
 
 export const SearchFilters = () => {
   return <div>Search Filters</div>
 }
 
 interface InvoicesControllerProps {
-  setInvoiceForm: Dispatch<SetStateAction<"home" | "add-invoice" | "display-invoice">>
+  setInvoiceForm: Dispatch<SetStateAction<"home" | "addInvoice" | "displayInvoice">>
 }
 export const InvoicesController = ({ setInvoiceForm }: InvoicesControllerProps) => {
   return (
     <Box sx={{ display: "flex" }}>
-      <Button variant="contained" onClick={() => setInvoiceForm("add-invoice")}>
+      <Button variant="contained" onClick={() => setInvoiceForm("addInvoice")}>
         Add New Invoice
       </Button>
       <SearchFilters />
@@ -31,12 +32,12 @@ interface InvoicesListProps {
   invoices: Invoice[]
 }
 export const InvoicesList = ({ invoices }: InvoicesListProps) => {
-  if (invoices.length <= 0) return <p>You haven't added any invoices yet.</p>
+  if (invoices.length <= 0) return <p>You havent added any invoices yet.</p>
   return (
-    <ul style={{ width: "95%", height: "70vh", borderLeft: "2px solid black" }}>
+    <List className={styles.cardsHolder}>
       {invoices.map((invoice, i) => {
-        return <InvoiceCard invoice={invoice} />
+        return <InvoiceCard invoice={invoice} key={i} />
       })}
-    </ul>
+    </List>
   )
 }

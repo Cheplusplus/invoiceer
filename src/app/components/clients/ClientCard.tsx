@@ -1,4 +1,4 @@
-import { Button } from "@mui/material"
+import { Box, Button, Input, ListItem, Typography } from "@mui/material"
 import { getObjectFromForm } from "../../utils/utils"
 import { deleteClient, updateClient } from "../../actions/actions"
 import { useRouter } from "next/navigation"
@@ -6,7 +6,7 @@ import { useState } from "react"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import CheckIcon from "@mui/icons-material/Check"
-import "../../globals.css"
+import { styles } from "./clients.styles"
 
 interface EditModeProps {
   client: Client
@@ -14,14 +14,14 @@ interface EditModeProps {
 const EditMode = ({ client }: EditModeProps) => {
   return (
     <>
-      <div className="flex-col flex-1">
-        <input name="name" defaultValue={client.name}></input>
-        <input name="email" defaultValue={client.email}></input>
-      </div>
-      <div className="flex-col flex-1">
-        <input name="address1" form={client.id} defaultValue={client.address1}></input>
-        <input name="address2" form={client.id} defaultValue={client.address2}></input>
-      </div>
+      <Box sx={styles.cardInputHolder}>
+        <Input name="name" defaultValue={client.name}></Input>
+        <Input name="email" defaultValue={client.email}></Input>
+      </Box>
+      <Box sx={styles.cardInputHolder}>
+        <Input name="address1" defaultValue={client.address1}></Input>
+        <Input name="address2" defaultValue={client.address2}></Input>
+      </Box>
     </>
   )
 }
@@ -32,14 +32,14 @@ interface DisplayModeProps {
 const DisplayMode = ({ client }: DisplayModeProps) => {
   return (
     <>
-      <div className="flex-col flex-1">
-        <p>{client.name}</p>
-        <p>{client.email}</p>
-      </div>
-      <div className="flex-col flex-1">
-        <p>{client.address1}</p>
-        <p>{client.address2}</p>
-      </div>
+      <Box sx={styles.cardInputHolder}>
+        <Typography variant="body1">{client.name}</Typography>
+        <Typography variant="body1">{client.email}</Typography>
+      </Box>
+      <Box sx={styles.cardInputHolder}>
+        <Typography variant="body1">{client.address1}</Typography>
+        <Typography variant="body1">{client.address2}</Typography>
+      </Box>
     </>
   )
 }
@@ -55,59 +55,36 @@ const ClientCard = ({ client }: ClientCardProps) => {
   const router = useRouter()
 
   return (
-    <li
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        borderBottom: "2px solid black",
-        minHeight: "110px",
+    <form
+      id={client.id}
+      action={(e) => {
+        setIsEditMode(!isEditMode)
+        if (!isEditMode) return
+        updateClient(client.id || "", getObjectFromForm<Client>(e))
+        router.refresh()
       }}
     >
-      <form
-        id={client.id}
-        action={(e) => {
-          setIsEditMode(!isEditMode)
-          if (!isEditMode) return
-          updateClient(client.id ? client.id : "", getObjectFromForm<Client>(e))
-          router.refresh()
-        }}
-      ></form>
+      <ListItem sx={styles.cardHolder}>
+        {isEditMode ? <EditMode client={client} /> : <DisplayMode client={client} />}
 
-      {isEditMode ? <EditMode client={client} /> : <DisplayMode client={client} />}
+        <Box sx={styles.cardButtonHolder}>
+          <Button variant="outlined" sx={styles.cardButton} type="submit">
+            {isEditMode ? <CheckIcon /> : <EditIcon />}
+          </Button>
 
-      <div style={{ position: "relative", top: "35px" }}>
-        <Button
-          variant="outlined"
-          style={{
-            minWidth: 0,
-            padding: 4,
-            aspectRatio: "1",
-            height: "fit-content",
-            marginRight: 6,
-          }}
-          form={client.id}
-          type="submit"
-        >
-          {isEditMode ? <CheckIcon /> : <EditIcon />}
-        </Button>
-
-        <Button
-          variant="outlined"
-          style={{
-            minWidth: 0,
-            padding: 4,
-            aspectRatio: "1",
-            height: "fit-content",
-          }}
-          onClick={() => {
-            deleteClient(client.id ? client.id : "")
-            router.refresh()
-          }}
-        >
-          {<DeleteIcon />}
-        </Button>
-      </div>
-    </li>
+          <Button
+            variant="outlined"
+            sx={styles.cardButton}
+            onClick={() => {
+              deleteClient(client.id || "")
+              router.refresh()
+            }}
+          >
+            {<DeleteIcon />}
+          </Button>
+        </Box>
+      </ListItem>
+    </form>
   )
 }
 

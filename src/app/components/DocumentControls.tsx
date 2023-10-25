@@ -7,56 +7,35 @@ import { Dispatch, ReactElement, SetStateAction } from "react"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { deleteInvoice } from "../actions/actions"
 import { useRouter } from "next/dist/client/components/navigation"
-
+import { DocumentController, DocumentControllerButton } from "./mui.styles"
 
 interface DocumentControlsProps {
   invoiceID: string
-  setInvoicesPage: Dispatch<SetStateAction<"home" | "add-invoice" | "display-invoice">>
+  setInvoicesPage: Dispatch<SetStateAction<"home" | "addInvoice" | "displayInvoice">>
 }
 const DocumentControls = ({ invoiceID, setInvoicesPage }: DocumentControlsProps) => {
   const router = useRouter()
 
   const handleDelete = () => {
     deleteInvoice(invoiceID) // ----------->> Update to useOptimistic!
-    router.refresh() 
+    router.refresh()
     setInvoicesPage("home")
   }
   const sidebarIcons: [ReactElement, Function?, string?][] = [
-    [<DownloadIcon />],
-    [<EditIcon />],
-    [<ContentCopyIcon />],
-    [<SaveIcon />, setInvoicesPage, "home"],
-    [<DeleteIcon />, handleDelete],
+    [<DownloadIcon key={1} />],
+    [<EditIcon key={2} />],
+    [<ContentCopyIcon key={3} />],
+    [<SaveIcon key={4} />, setInvoicesPage, "home"],
+    [<DeleteIcon key={5} />, handleDelete],
   ]
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        bgcolor: "#D4D4D4",
-        width: "48px",
-        position: "fixed",
-        top: "0",
-        right: "0",
-        height: "100vh",
-        pt: 4,
-      }}
-    >
+    <Box sx={DocumentController}>
       {sidebarIcons.map((item, i) => (
         <Button
           onClick={() => (item[1] ? item[1](item[2] || undefined) : undefined)}
           key={i}
           variant="outlined"
-          sx={{
-            minWidth: "0",
-            maxWidth: "fit-content",
-            p: 0,
-            m: "0 auto",
-            mt: 4,
-            color: "#646464",
-            borderColor: "#646464",
-          }}
+          sx={DocumentControllerButton}
         >
           {item[0]}
         </Button>

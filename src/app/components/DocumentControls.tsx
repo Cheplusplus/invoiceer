@@ -1,4 +1,4 @@
-import { Container, Typography, Box, Paper, Button } from "@mui/material"
+import { Box, Button } from "@mui/material"
 import EditIcon from "@mui/icons-material/Edit"
 import DownloadIcon from "@mui/icons-material/Download"
 import ContentCopyIcon from "@mui/icons-material/ContentCopy"
@@ -7,7 +7,7 @@ import { Dispatch, ReactElement, SetStateAction } from "react"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { deleteInvoice } from "../actions/actions"
 import { useRouter } from "next/dist/client/components/navigation"
-import { DocumentController, DocumentControllerButton } from "./mui.styles"
+import { styles } from "./DocumentControls.styles"
 
 interface DocumentControlsProps {
   invoiceID: string
@@ -16,27 +16,28 @@ interface DocumentControlsProps {
 const DocumentControls = ({ invoiceID, setInvoicesPage }: DocumentControlsProps) => {
   const router = useRouter()
 
+  const handleSave = () => {
+    setInvoicesPage("home")
+  }
   const handleDelete = () => {
     deleteInvoice(invoiceID) // ----------->> Update to useOptimistic!
     router.refresh()
     setInvoicesPage("home")
   }
-  const sidebarIcons: [ReactElement, Function?, string?][] = [
-    [<DownloadIcon key={1} />],
-    [<EditIcon key={2} />],
-    [<ContentCopyIcon key={3} />],
-    [<SaveIcon key={4} />, setInvoicesPage, "home"],
-    [<DeleteIcon key={5} />, handleDelete],
+
+  let n = 0
+  const sidebarIcons: [ReactElement, Function?][] = [
+    [<DownloadIcon key={n++} />],
+    [<EditIcon key={n++} />],
+    [<ContentCopyIcon key={n++} />],
+    [<SaveIcon key={n++} />, handleSave],
+    [<DeleteIcon key={n++} />, handleDelete],
   ]
+
   return (
-    <Box sx={DocumentController}>
+    <Box sx={styles.DocumentController}>
       {sidebarIcons.map((item, i) => (
-        <Button
-          onClick={() => (item[1] ? item[1](item[2] || undefined) : undefined)}
-          key={i}
-          variant="outlined"
-          sx={DocumentControllerButton}
-        >
+        <Button onClick={() => item[1] && item[1]()} key={i} variant="outlined" sx={styles.DocumentControllerButton}>
           {item[0]}
         </Button>
       ))}

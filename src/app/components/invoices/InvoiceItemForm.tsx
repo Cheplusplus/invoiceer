@@ -25,10 +25,12 @@ const InvoiceItemForm = ({ setInvoiceItems }: InvoiceItemFormProps) => {
         setIsSubmitTrue(!isSubmitTrue)
       })}
     >
-      <Input {...register("description")} defaultValue="Add a description" />
+      <Input {...register("description")} defaultValue="Description" />
       <Input {...register("cost")} defaultValue="Cost" />
       <Input {...register("quantity")} defaultValue="Quantity" />
-      <Input type="submit" value="submit" />
+      <Button type="submit" variant="outlined">
+        Add
+      </Button>
     </form>
   )
 }

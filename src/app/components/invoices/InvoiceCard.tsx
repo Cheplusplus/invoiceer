@@ -19,11 +19,11 @@ const DisplayMode = ({ invoice }: EditModeProps) => {
   return (
     <>
       <Box className="flex-col flex-1">
-        <Typography variant="body1">{invoice.id}</Typography>
-        <Typography variant="body1">{invoice.id}</Typography>
+        <Typography variant="body1">{invoice.paid ? "paid" : "outstanding"}</Typography>
+        <Typography variant="body1">{invoice.clientID}</Typography>
       </Box>
       <Box className="flex-col flex-1">
-        <Typography variant="body1">{invoice.id}</Typography>
+        <Typography variant="body1">{invoice.userID}</Typography>
         <Typography variant="body1">{invoice.id}</Typography>
       </Box>
     </>
@@ -37,11 +37,11 @@ const EditMode = ({ invoice }: DisplayModeProps) => {
   return (
     <>
       <Box className="flex-col flex-1">
-        <Input name="name" defaultValue={invoice.id}></Input>
-        <Input name="email" defaultValue={invoice.id}></Input>
+        <Input name="name" defaultValue={invoice.paid}></Input>
+        <Input name="email" defaultValue={invoice.clientID}></Input>
       </Box>
       <Box className="flex-col flex-1">
-        <Input name="address1" defaultValue={invoice.id}></Input>
+        <Input name="address1" defaultValue={invoice.userID}></Input>
         <Input name="address2" defaultValue={invoice.id}></Input>
       </Box>
     </>
@@ -60,7 +60,6 @@ const InvoiceCard = ({ invoice }: InvoiceCardProps) => {
 
   return (
     <form
-      id={invoice.id}
       action={(e) => {
         setIsEditMode(!isEditMode)
         if (!isEditMode) return

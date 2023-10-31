@@ -15,6 +15,20 @@ export const metadata: Metadata = {
   description: "Next Best Invoicing App",
 }
 
+const containerStyles = {
+  bgcolor: "snow",
+  display: "flex",
+  flexDirection: {
+    lg: "row",
+    md: "row",
+    sm: "column",
+    xs: "column",
+  },
+  p: 0,
+  m: 0,
+  mr: "48px",
+}
+
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await getSession()
   const user = session?.user || null
@@ -39,21 +53,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       </Head>
       <UserProvider>
         <body style={{ padding: "0", margin: "0", height: "100%" }} className={inter.className}>
-          <Box
-            sx={{
-              bgcolor: "snow",
-              display: "flex",
-              flexDirection: {
-                lg: "row",
-                md: "row",
-                sm: "column",
-                xs: "column",
-              },
-              p: 0,
-              m: 0,
-              mr: "48px",
-            }}
-          >
+          <Box sx={containerStyles}>
             <SideBarMenu />
             <Container
               sx={{

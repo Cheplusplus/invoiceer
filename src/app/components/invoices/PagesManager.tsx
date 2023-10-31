@@ -14,8 +14,6 @@ interface PagesManagerProps {
 export const PagesManager = ({ invoices, clients }: PagesManagerProps) => {
   const [pageState, setPageState] = useState<"home" | "addInvoice" | "displayInvoice">("home")
   const [invoice, setInvoice] = useState<Invoice>({ userID: "", clientID: "" })
-  const [clientID, setClientID] = useState("")
-  const [invoiceItems, setInvoiceItems] = useState<InvoiceItem[]>([])
 
   const Home = () => {
     return (
@@ -52,7 +50,6 @@ export const PagesManager = ({ invoices, clients }: PagesManagerProps) => {
 
   return (
     <>
-      {pageState}
       <>{pages[pageState]}</>
     </>
   )

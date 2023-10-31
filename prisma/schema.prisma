@@ -45,8 +45,8 @@ model Invoice {
   id String @id @default(uuid())
   user User @relation(fields: [userID], references: [id], onDelete: Cascade)
   userID String
-  client Client @relation(fields: [clientID], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  clientID String
+  client Client? @relation(fields: [clientID], references: [id])
+  clientID String?
   invoiceItems InvoiceItem[]
   paid Boolean? @default(false)
   createdAt DateTime @default(now())
@@ -55,7 +55,7 @@ model Invoice {
 
 model InvoiceItem {
   id String @id @default(uuid())
-  invoice Invoice @relation(fields: [invoiceID], references: [id])
+  invoice Invoice @relation(fields: [invoiceID], references: [id], onDelete: Cascade)
   invoiceID String
   description String
   cost Float

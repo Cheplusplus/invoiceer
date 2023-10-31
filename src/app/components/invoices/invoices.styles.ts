@@ -23,4 +23,10 @@ export const styles = {
     borderBottom: "2px solid black",
     minHeight: "110px",
   },
+
+  cardsHolder: {
+    width: "95%",
+    height: "70vh",
+    borderLeft: "2px solid black",
+  },
 }

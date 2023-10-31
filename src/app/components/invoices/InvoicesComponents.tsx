@@ -3,7 +3,7 @@
 import { Button, Box, List } from "@mui/material"
 import { Dispatch, SetStateAction } from "react"
 import InvoiceCard from "./InvoiceCard"
-import styles from "./invoices.module.css"
+import { styles } from "./invoices.styles"
 
 export const SearchFilters = () => {
   return <div>Search Filters</div>
@@ -34,7 +34,7 @@ interface InvoicesListProps {
 export const InvoicesList = ({ invoices }: InvoicesListProps) => {
   if (invoices.length <= 0) return <p>You havent added any invoices yet.</p>
   return (
-    <List className={styles.cardsHolder}>
+    <List sx={styles.cardsHolder}>
       {invoices.map((invoice, i) => {
         return <InvoiceCard invoice={invoice} key={i} />
       })}

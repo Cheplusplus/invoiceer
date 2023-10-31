@@ -4,24 +4,24 @@ import { getSession } from "@auth0/nextjs-auth0"
 import { headers } from "next/headers"
 import prisma from "../db"
 
-const createConstructor = <T,>(fn: Function, objType: string) => {
+const createConstructor = <T,>(fn: Function, objType: string, useUser: boolean = true) => {
   return async (obj: T) => {
     const objRes = await obj
     const user = await getUser()
-    const res = await fn({ data: { ...objRes, userID: user?.sub } })
+    const res = await fn({ data: useUser ? { ...objRes, userID: user?.sub } : objRes })
     console.log(`Created ${objType} at ${new Date().getTime()}:`)
     console.log(res)
     return res as T
   }
 }
 
-export const createUser = async (obj: User) => {
-  const res = await obj
-  prisma.user.create({ data: { ...res } }).then((c: User) => {
-    console.log(`Created User at ${new Date().getTime()}:`)
-    console.log(c)
-  })
-}
+// export const createUser = async (obj: User) => {
+//   const res = await obj
+//   prisma.user.create({ data: { ...res } }).then((c: User) => {
+//     console.log(`Created User at ${new Date().getTime()}:`)
+//     console.log(c)
+//   })
+// }
 
 const deleteConstructor = (fn: Function, objType: string) => {
   return async (id: string) => {
@@ -79,7 +79,7 @@ export const getPathname = () => {
   return "/" + headersList.get("referer")?.split("/")[3] || ""
 }
 
-// export const createUser = createConstructor<User>(prisma.user.create, "User")
+export const createUser = createConstructor<User>(prisma.user.create, "User", false)
 export const deleteUser = deleteConstructor(prisma.user.delete, "User")
 export const getAllUsers = getManyFromUserIDConstructor<User[]>(prisma.user.findMany)
 export const getUserWithID = getWithIDConstructor<User>(prisma.user.findUnique)
@@ -98,8 +98,8 @@ export const getAllInvoices = getManyFromUserIDConstructor<Invoice[]>(prisma.inv
 export const getInvoiceWithID = getWithIDConstructor<Invoice>(prisma.invoice.findUnique)
 export const updateInvoice = updateConstructor(prisma.invoice.update)
 
-export const createInvoiceItem = createConstructor<Invoice>(prisma.invoiceItem.create, "InvoiceItem")
+export const createInvoiceItem = createConstructor<InvoiceItem>(prisma.invoiceItem.create, "InvoiceItem", false)
 export const deleteInvoiceItem = deleteConstructor(prisma.invoiceItem.delete, "InvoiceItem")
-export const getAllInvoiceItems = getManyFromUserIDConstructor(prisma.invoiceItem.findMany)
-export const getInvoiceItemWithID = getWithIDConstructor(prisma.invoiceItem.findUnique)
+export const getAllInvoiceItems = getManyFromUserIDConstructor<InvoiceItem[]>(prisma.invoiceItem.findMany)
+export const getInvoiceItemWithID = getWithIDConstructor<InvoiceItem>(prisma.invoiceItem.findUnique)
 export const updateInvoiceItem = updateConstructor(prisma.invoiceItem.update)

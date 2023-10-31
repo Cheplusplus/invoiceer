@@ -2,7 +2,7 @@ import { Paper } from "@mui/material"
 import { ReactNode } from "react"
 
 interface PageContentProps {
-  children: ReactNode
+  children: ReactNode | ReactNode[]
 }
 const PageContent = ({ children }: PageContentProps) => {
   return (

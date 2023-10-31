@@ -6,7 +6,7 @@ import { Button, Typography, Box, Input, ListItem } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import CheckIcon from "@mui/icons-material/Check"
-import styles from "./invoices.module.css"
+import { styles } from "./invoices.styles"
 
 /**
  * The DisplayMode and EditMode components are swapped out when
@@ -64,22 +64,22 @@ const InvoiceCard = ({ invoice }: InvoiceCardProps) => {
       action={(e) => {
         setIsEditMode(!isEditMode)
         if (!isEditMode) return
-        updateInvoice(invoice.id ? invoice.id : "", getObjectFromForm<Invoice>(e))
+        updateInvoice(invoice.id ?? "", getObjectFromForm<Invoice>(e))
         router.refresh()
       }}
     >
-      <ListItem className={styles.cardLayout}>
+      <ListItem sx={styles.cardHolder}>
         {isEditMode ? <EditMode invoice={invoice} /> : <DisplayMode invoice={invoice} />}
-        <Box className={styles.cardButtonHolder}>
-          <Button variant="outlined" className={styles.cardButton} type="submit">
+        <Box sx={styles.cardButtonHolder}>
+          <Button variant="outlined" sx={styles.cardButton} type="submit">
             {!isEditMode ? <EditIcon /> : <CheckIcon />}
           </Button>
 
           <Button
             variant="outlined"
-            className={styles.cardButton}
+            sx={styles.cardButton}
             onClick={() => {
-              deleteInvoice(invoice.id ? invoice.id : "")
+              deleteInvoice(invoice.id ?? "")
               router.refresh()
             }}
           >

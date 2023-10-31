@@ -2,7 +2,7 @@ import { useUser } from "@auth0/nextjs-auth0/client"
 import { Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 import { useRouter } from "next/navigation"
 import { useState, Dispatch, SetStateAction } from "react"
-import { createInvoice } from "../../actions/actions"
+import { createInvoice, createInvoiceItem } from "../../actions/actions"
 import InvoiceItemForm from "./InvoiceItemForm"
 
 /**
@@ -11,11 +11,12 @@ import InvoiceItemForm from "./InvoiceItemForm"
 interface InvoiceFormProps {
   clients: Client[]
   setInvoiceDisplay: Dispatch<SetStateAction<"home" | "addInvoice" | "displayInvoice">>
-  setInvoiceID: Dispatch<SetStateAction<string>>
+  setInvoice: Dispatch<SetStateAction<Invoice>>
 }
-export const InvoiceForm = ({ clients, setInvoiceDisplay, setInvoiceID }: InvoiceFormProps) => {
+export const InvoiceForm = ({ clients, setInvoiceDisplay, setInvoice }: InvoiceFormProps) => {
   const [client, setClient] = useState("")
   const { user, error, isLoading } = useUser()
+  const [invoiceItems, setInvoiceItems] = useState<InvoiceItem[]>([])
   const router = useRouter()
 
   return (
@@ -26,7 +27,16 @@ export const InvoiceForm = ({ clients, setInvoiceDisplay, setInvoiceID }: Invoic
             userID: user?.sub || "",
             clientID: client,
           })
-          setInvoiceID(newInvoice.id || "")
+
+          invoiceItems.map(async (item) => {
+            await createInvoiceItem({
+              invoiceID: newInvoice.id || "",
+              description: item.description,
+              cost: parseFloat(`${item.cost}`),
+              quantity: parseFloat(`${item.quantity}`),
+            })
+          })
+          setInvoice(newInvoice)
           setInvoiceDisplay("displayInvoice")
           router.refresh()
         }}
@@ -39,9 +49,10 @@ export const InvoiceForm = ({ clients, setInvoiceDisplay, setInvoiceID }: Invoic
             </MenuItem>
           ))}
         </Select>
-        <InvoiceItemForm />
+
         <Button variant="outlined" type="submit"></Button>
       </form>
+      <InvoiceItemForm setInvoiceItems={setInvoiceItems} />
     </FormControl>
   )
 }

@@ -5,14 +5,7 @@ import { Paper } from "@mui/material"
 import DocumentControls from "../DocumentControls"
 import { InvoiceView } from "./InvoiceView"
 import { InvoiceForm } from "./InvoiceForm"
-
-const PAPER_SX_PROPS = {
-  display: "flex",
-  flexDirection: "column",
-  mt: 10,
-  p: 4,
-  height: "80vh",
-}
+import { styles } from "./invoices.styles"
 
 interface PagesManagerProps {
   invoices: Invoice[]
@@ -20,13 +13,13 @@ interface PagesManagerProps {
 }
 export const PagesManager = ({ invoices, clients }: PagesManagerProps) => {
   const [pageState, setPageState] = useState<"home" | "addInvoice" | "displayInvoice">("home")
-  const [invoiceID, setInvoiceID] = useState("")
+  const [invoice, setInvoice] = useState<Invoice>({ userID: "", clientID: "" })
   const [clientID, setClientID] = useState("")
   const [invoiceItems, setInvoiceItems] = useState<InvoiceItem[]>([])
 
   const Home = () => {
     return (
-      <Paper sx={PAPER_SX_PROPS} elevation={16}>
+      <Paper sx={styles.paper} elevation={16}>
         <h1>Invoices</h1>
         <InvoicesController setInvoiceForm={setPageState} />
         <InvoicesList invoices={invoices} />
@@ -36,8 +29,8 @@ export const PagesManager = ({ invoices, clients }: PagesManagerProps) => {
 
   const AddInvoice = () => {
     return (
-      <Paper sx={PAPER_SX_PROPS} elevation={16}>
-        <InvoiceForm clients={clients} setInvoiceDisplay={setPageState} setInvoiceID={setInvoiceID} />
+      <Paper sx={styles.paper} elevation={16}>
+        <InvoiceForm clients={clients} setInvoiceDisplay={setPageState} setInvoice={setInvoice} />
       </Paper>
     )
   }
@@ -46,7 +39,7 @@ export const PagesManager = ({ invoices, clients }: PagesManagerProps) => {
     return (
       <>
         <InvoiceView />
-        <DocumentControls setInvoicesPage={setPageState} invoiceID={invoiceID}></DocumentControls>
+        <DocumentControls setInvoicesPage={setPageState} invoiceID={invoice?.id || ""}></DocumentControls>
       </>
     )
   }
@@ -57,5 +50,10 @@ export const PagesManager = ({ invoices, clients }: PagesManagerProps) => {
     displayInvoice: <DisplayInvoice />,
   }
 
-  return <>{pages[pageState]}</>
+  return (
+    <>
+      {pageState}
+      <>{pages[pageState]}</>
+    </>
+  )
 }

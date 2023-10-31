@@ -58,8 +58,7 @@ model InvoiceItem {
   invoice Invoice @relation(fields: [invoiceID], references: [id])
   invoiceID String
   description String
-  costInt Int
-  costDec Int
+  cost Float
   quantity Float
   createdAt DateTime @default(now())
   updatedAT DateTime @updatedAt

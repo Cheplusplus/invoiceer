@@ -29,8 +29,7 @@ declare global {
     id?: string
     invoiceID: string
     description: string
-    costInt: number
-    costDec: number
+    cost: number
     quantity: number
   }
 }

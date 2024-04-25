@@ -1,6 +1,5 @@
 "use client"
 
-import { getObjectFromForm } from "@/app/utils/utils"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { Input, Button } from "@mui/material"
 import { useForm } from "react-hook-form"
@@ -25,9 +24,9 @@ const InvoiceItemForm = ({ setInvoiceItems }: InvoiceItemFormProps) => {
         setIsSubmitTrue(!isSubmitTrue)
       })}
     >
-      <Input {...register("description")} defaultValue="Description" />
-      <Input {...register("cost")} defaultValue="Cost" />
-      <Input {...register("quantity")} defaultValue="Quantity" />
+      <Input {...register("description")} placeholder="Description" />
+      <Input {...register("cost")} placeholder="Cost" />
+      <Input {...register("quantity")} placeholder="Quantity" />
       <Button type="submit" variant="outlined">
         Add
       </Button>

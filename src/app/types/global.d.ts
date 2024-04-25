@@ -10,7 +10,7 @@ declare global {
 
   interface Client {
     id?: string
-    userID: string
+    userID?: string
     name: string
     company?: string
     email: string

@@ -1,12 +1,14 @@
 import { useRouter } from "next/dist/client/components/navigation"
-import { useState } from "react"
+import { useState, useEffect, Dispatch, SetStateAction } from "react"
 import { getObjectFromForm } from "../../utils/utils"
-import { deleteInvoice, updateInvoice } from "../../actions/actions"
+import { deleteInvoice, getUserWithID, updateInvoice } from "../../actions/actions"
 import { Button, Typography, Box, Input, ListItem } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import CheckIcon from "@mui/icons-material/Check"
 import { styles } from "./invoices.styles"
+import { Paper } from "@mui/material"
+import { InvoiceForm } from "./InvoiceForm"
 
 /**
  * The DisplayMode and EditMode components are swapped out when
@@ -32,18 +34,15 @@ const DisplayMode = ({ invoice }: EditModeProps) => {
 
 interface DisplayModeProps {
   invoice: Invoice
+  setPageState: Dispatch<SetStateAction<"home" | "addInvoice" | "displayInvoice">>
+  setInvoice: Dispatch<SetStateAction<Invoice>>
 }
-const EditMode = ({ invoice }: DisplayModeProps) => {
+const EditMode = ({ invoice, setPageState, setInvoice }: DisplayModeProps) => {
   return (
     <>
-      <Box className="flex-col flex-1">
-        <Input name="name" defaultValue={invoice.paid}></Input>
-        <Input name="email" defaultValue={invoice.clientID}></Input>
-      </Box>
-      <Box className="flex-col flex-1">
-        <Input name="address1" defaultValue={invoice.userID}></Input>
-        <Input name="address2" defaultValue={invoice.id}></Input>
-      </Box>
+      <Paper sx={styles.paper} elevation={16}>
+        <InvoiceForm setInvoiceDisplay={setPageState} setInvoice={setInvoice} />
+      </Paper>
     </>
   )
 }
@@ -53,8 +52,10 @@ const EditMode = ({ invoice }: DisplayModeProps) => {
  */
 interface InvoiceCardProps {
   invoice: Invoice
+  setPageState: Dispatch<SetStateAction<"home" | "addInvoice" | "displayInvoice">>
+  setInvoice: Dispatch<SetStateAction<Invoice>>
 }
-const InvoiceCard = ({ invoice }: InvoiceCardProps) => {
+const InvoiceCard = ({ invoice, setPageState, setInvoice }: InvoiceCardProps) => {
   const [isEditMode, setIsEditMode] = useState(false)
   const router = useRouter()
 
@@ -68,7 +69,11 @@ const InvoiceCard = ({ invoice }: InvoiceCardProps) => {
       }}
     >
       <ListItem sx={styles.cardHolder}>
-        {isEditMode ? <EditMode invoice={invoice} /> : <DisplayMode invoice={invoice} />}
+        {isEditMode ? (
+          <EditMode invoice={invoice} setPageState={setPageState} setInvoice={setInvoice} />
+        ) : (
+          <DisplayMode invoice={invoice} />
+        )}
         <Box sx={styles.cardButtonHolder}>
           <Button variant="outlined" sx={styles.cardButton} type="submit">
             {!isEditMode ? <EditIcon /> : <CheckIcon />}

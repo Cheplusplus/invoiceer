@@ -1,3 +1,13 @@
+/**
+ *  Component layout:
+ *
+ *  -> ClientsPage - Gets all user saved clients from server
+ *    -> ClientsForm
+ *    -> ClientsList - Accepts a list
+ *      -> ClientCard
+ *
+ */
+
 import ClientsList from "./ClientsList"
 import { getAllClients } from "../../actions/actions"
 import { Box, Paper, Typography } from "@mui/material"

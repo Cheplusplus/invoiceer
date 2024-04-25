@@ -41,6 +41,14 @@ const getManyFromUserIDConstructor = <T,>(fn: Function) => {
   }
 }
 
+const getManyFromGivenKeyConstructor = <T,>(fn: Function) => {
+  return async (key: {}) => {
+    return fn({
+      where: key,
+    }) as T
+  }
+}
+
 const getManyWhereConstructor = <T,>(fn: Function) => {
   return async (where: {}) => {
     const user = await getUser()
@@ -100,6 +108,6 @@ export const updateInvoice = updateConstructor(prisma.invoice.update)
 
 export const createInvoiceItem = createConstructor<InvoiceItem>(prisma.invoiceItem.create, "InvoiceItem", false)
 export const deleteInvoiceItem = deleteConstructor(prisma.invoiceItem.delete, "InvoiceItem")
-export const getAllInvoiceItems = getManyFromUserIDConstructor<InvoiceItem[]>(prisma.invoiceItem.findMany)
+export const getAllInvoiceItems = getManyFromGivenKeyConstructor<InvoiceItem[]>(prisma.invoiceItem.findMany)
 export const getInvoiceItemWithID = getWithIDConstructor<InvoiceItem>(prisma.invoiceItem.findUnique)
 export const updateInvoiceItem = updateConstructor(prisma.invoiceItem.update)

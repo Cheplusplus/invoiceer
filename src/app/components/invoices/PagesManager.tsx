@@ -20,7 +20,7 @@ export const PagesManager = ({ invoices, clients }: PagesManagerProps) => {
       <Paper sx={styles.paper} elevation={16}>
         <h1>Invoices</h1>
         <InvoicesController setInvoiceForm={setPageState} />
-        <InvoicesList invoices={invoices} />
+        <InvoicesList invoices={invoices} setPageState={setPageState} setInvoice={setInvoice} />
       </Paper>
     )
   }
@@ -28,7 +28,7 @@ export const PagesManager = ({ invoices, clients }: PagesManagerProps) => {
   const AddInvoice = () => {
     return (
       <Paper sx={styles.paper} elevation={16}>
-        <InvoiceForm clients={clients} setInvoiceDisplay={setPageState} setInvoice={setInvoice} />
+        <InvoiceForm _clients={clients} setInvoiceDisplay={setPageState} setInvoice={setInvoice} />
       </Paper>
     )
   }
@@ -36,7 +36,7 @@ export const PagesManager = ({ invoices, clients }: PagesManagerProps) => {
   const DisplayInvoice = () => {
     return (
       <>
-        <InvoiceView />
+        <InvoiceView invoice={invoice} />
         <DocumentControls setInvoicesPage={setPageState} invoiceID={invoice?.id || ""}></DocumentControls>
       </>
     )

@@ -30,13 +30,15 @@ export const InvoiceButtons = () => {}
  */
 interface InvoicesListProps {
   invoices: Invoice[]
+  setPageState: Dispatch<SetStateAction<"home" | "addInvoice" | "displayInvoice">>
+  setInvoice: Dispatch<SetStateAction<Invoice>>
 }
-export const InvoicesList = ({ invoices }: InvoicesListProps) => {
+export const InvoicesList = ({ invoices, setPageState, setInvoice }: InvoicesListProps) => {
   if (invoices.length <= 0) return <p>You havent added any invoices yet.</p>
   return (
     <List sx={styles.cardsHolder}>
       {invoices.map((invoice, i) => {
-        return <InvoiceCard invoice={invoice} key={i} />
+        return <InvoiceCard invoice={invoice} key={i} setPageState={setPageState} setInvoice={setInvoice} />
       })}
     </List>
   )

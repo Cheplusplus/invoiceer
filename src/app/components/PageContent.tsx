@@ -1,20 +1,10 @@
-import { Container, Typography, Box, Paper } from "@mui/material";
-import DocumentControls from "./DocumentControls";
+import { Paper } from "@mui/material"
+import { ReactNode } from "react"
 
 interface PageContentProps {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    address1: string | null;
-    address2: string | null;
-    picture: string | null;
-    createAt: Date;
-    updatedAT: Date;
-  } | null;
+  children: ReactNode | ReactNode[]
 }
-
-const PageContent = ({ user }: PageContentProps) => {
+const PageContent = ({ children }: PageContentProps) => {
   return (
     <>
       <Paper
@@ -35,11 +25,10 @@ const PageContent = ({ user }: PageContentProps) => {
         }}
         elevation={16}
       >
-        {user?.name}
+        {children}
       </Paper>
-      <DocumentControls></DocumentControls>
     </>
-  );
-};
+  )
+}
 
-export default PageContent;
+export default PageContent

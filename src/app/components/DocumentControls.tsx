@@ -1,51 +1,48 @@
-import { Container, Typography, Box, Paper, Button } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DownloadIcon from "@mui/icons-material/Download";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import SaveIcon from "@mui/icons-material/Save";
+import { Box, Button } from "@mui/material"
+import EditIcon from "@mui/icons-material/Edit"
+import DownloadIcon from "@mui/icons-material/Download"
+import ContentCopyIcon from "@mui/icons-material/ContentCopy"
+import SaveIcon from "@mui/icons-material/Save"
+import { Dispatch, ReactElement, SetStateAction } from "react"
+import DeleteIcon from "@mui/icons-material/Delete"
+import { deleteInvoice } from "../actions/actions"
+import { useRouter } from "next/dist/client/components/navigation"
+import { styles } from "./DocumentControls.styles"
 
-const sidebarIcons = [
-  [<DownloadIcon />],
-  [<EditIcon />],
-  [<ContentCopyIcon />],
-  [<SaveIcon />],
-];
+interface DocumentControlsProps {
+  invoiceID: string
+  setInvoicesPage: Dispatch<SetStateAction<"home" | "addInvoice" | "displayInvoice">>
+}
+const DocumentControls = ({ invoiceID, setInvoicesPage }: DocumentControlsProps) => {
+  const router = useRouter()
 
-const DocumentControls = () => {
+  const handleSave = () => {
+    setInvoicesPage("home")
+  }
+  const handleDelete = () => {
+    deleteInvoice(invoiceID) // ----------->> Update to useOptimistic!
+    router.refresh()
+    setInvoicesPage("home")
+  }
+
+  let n = 0
+  const sidebarIcons: [ReactElement, Function?][] = [
+    [<DownloadIcon key={n++} />],
+    [<EditIcon key={n++} />],
+    [<ContentCopyIcon key={n++} />],
+    [<SaveIcon key={n++} />, handleSave],
+    [<DeleteIcon key={n++} />, handleDelete],
+  ]
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        bgcolor: "#D4D4D4",
-        width: "48px",
-        position: "fixed",
-        top: "0",
-        right: "0",
-        height: "100vh",
-        pt: 4,
-      }}
-    >
-      {sidebarIcons.map((icon, i) => (
-        <Button
-          key={i}
-          variant="outlined"
-          sx={{
-            minWidth: "0",
-            maxWidth: "fit-content",
-            p: 0,
-            m: "0 auto",
-            mt: 4,
-            color: "#646464",
-            borderColor: "#646464",
-          }}
-        >
-          {icon}
+    <Box sx={styles.DocumentController}>
+      {sidebarIcons.map((item, i) => (
+        <Button onClick={() => item[1] && item[1]()} key={i} variant="outlined" sx={styles.DocumentControllerButton}>
+          {item[0]}
         </Button>
       ))}
     </Box>
-  );
-};
+  )
+}
 
-export default DocumentControls;
+export default DocumentControls

@@ -19,7 +19,7 @@ model User {
   picture String?
   invoices Invoice[]
   clients Client[]
-  createAt DateTime @default(now())
+  createdAt DateTime @default(now())
   updatedAT DateTime @updatedAt
 
   @@unique([id, name, email, address1, address2])
@@ -30,10 +30,11 @@ model Client {
   user User @relation(fields: [userID], references: [id], onDelete: Cascade)
   userID String
   name String
+  company String?
   email String
   address1 String
   address2 String
-  createAt DateTime @default(now())
+  createdAt DateTime @default(now())
   updatedAT DateTime @updatedAt
   invoices Invoice[]
 
@@ -42,20 +43,24 @@ model Client {
 
 model Invoice {
   id String @id @default(uuid())
-  user User @relation(fields: [userID, userName, userEmail, userAddress1, userAddress2], references: [id, name, email, address1, address2], onDelete: Cascade)
+  user User @relation(fields: [userID], references: [id], onDelete: Cascade)
   userID String
-  userName String
-  userEmail String
-  userAddress1 String
-  userAddress2 String
-  client Client @relation(fields: [clientID, clientName, clientEmail, clientAddress1, clientAddress2], references: [id, name, email, address1, address2])
-  clientID String
-  clientName String
-  clientEmail String
-  clientAddress1 String
-  clientAddress2 String
-  paid Boolean
-  createAt DateTime @default(now())
+  client Client? @relation(fields: [clientID], references: [id])
+  clientID String?
+  invoiceItems InvoiceItem[]
+  paid Boolean? @default(false)
+  createdAt DateTime @default(now())
+  updatedAT DateTime @updatedAt
+}
+
+model InvoiceItem {
+  id String @id @default(uuid())
+  invoice Invoice @relation(fields: [invoiceID], references: [id], onDelete: Cascade)
+  invoiceID String
+  description String
+  cost Float
+  quantity Float
+  createdAt DateTime @default(now())
   updatedAT DateTime @updatedAt
 }
 

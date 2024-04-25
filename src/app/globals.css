@@ -1,0 +1,21 @@
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.card-button {
+  min-width: 0;
+  padding: 0.3rem;
+  aspect-ratio: 1;
+  height: fit-content;
+  margin-right: 0.2rem;
+}
+
+.card-button-holder {
+  position: relative;
+  top: 1rem;
+}

@@ -1,8 +1,8 @@
-import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
-import ClientsPage from "./ClientsPage";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0"
+import ClientsPage from "../components/clients/ClientsPage"
 
 const Home = async () => {
-  return <ClientsPage />;
-};
+  return <ClientsPage />
+}
 
-export default withPageAuthRequired(Home, { returnTo: "/clients" });
+export default withPageAuthRequired(Home, { returnTo: "/clients" })

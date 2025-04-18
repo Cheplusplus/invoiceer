@@ -25,28 +25,30 @@ const ClientsForm = () => {
   return (
     <>
       <Box sx={styles.clientFormStyle}>
-        <form
-          onSubmit={handleSubmit((e) => {
-            createClient(e as Client)
-            router.refresh()
-            setIsSubmitTrue(!isSubmitTrue)
-          })}
-        >
-          <InputLabel>Names</InputLabel>
-          <Input {...register("name")}></Input>
+        <>
+          <form
+            onSubmit={handleSubmit((e) => {
+              createClient(e as Client)
+              router.refresh()
+              setIsSubmitTrue(!isSubmitTrue)
+            })}
+          >
+            <InputLabel>Names</InputLabel>
+            <Input {...register("name")}></Input>
 
-          <InputLabel>Email</InputLabel>
-          <Input {...register("email")}></Input>
+            <InputLabel>Email</InputLabel>
+            <Input {...register("email")}></Input>
 
-          <InputLabel>Address1</InputLabel>
-          <Input {...register("address1")}></Input>
+            <InputLabel>Address1</InputLabel>
+            <Input {...register("address1")}></Input>
 
-          <InputLabel>Address2</InputLabel>
-          <Input {...register("address2")}></Input>
-          <Button type="submit" variant="contained" sx={{ mt: 1 }}>
-            Add Client
-          </Button>
-        </form>
+            <InputLabel>Address2</InputLabel>
+            <Input {...register("address2")}></Input>
+            <Button type="submit" variant="contained" sx={{ mt: 1 }}>
+              Add Client
+            </Button>
+          </form>
+        </>
       </Box>
     </>
   )

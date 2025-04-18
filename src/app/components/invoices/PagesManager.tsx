@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
 import { InvoicesController, InvoicesList } from "./InvoicesComponents"
-import { Paper } from "@mui/material"
+import { Paper, Typography } from "@mui/material"
 import DocumentControls from "../DocumentControls"
 import { InvoiceView } from "./InvoiceView"
 import { InvoiceForm } from "./InvoiceForm"
@@ -18,7 +18,7 @@ export const PagesManager = ({ invoices, clients }: PagesManagerProps) => {
   const Home = () => {
     return (
       <Paper sx={styles.paper} elevation={16}>
-        <h1>Invoices</h1>
+        <Typography variant="h1">Invoices</Typography>
         <InvoicesController setInvoiceForm={setPageState} />
         <InvoicesList invoices={invoices} setPageState={setPageState} setInvoice={setInvoice} />
       </Paper>

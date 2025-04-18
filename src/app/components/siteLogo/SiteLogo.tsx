@@ -10,12 +10,14 @@ const SiteLogo = ({ color, bgcolor }: SiteLogoProps) => {
   return (
     <Link href="/" sx={styles.link}>
       <Box sx={styles.container}>
-        <Typography variant="h2" sx={{ ...styles.logoText, borderColor: color, color: color }}>
-          Invoiceer
-        </Typography>
-        <Typography sx={{ ...styles.sloganText, bgcolor: bgcolor, color: color }}>
-          Simplify, Organize, Prosper
-        </Typography>
+        <>
+          <Typography variant="h2" sx={{ ...styles.logoText, borderColor: color, color: color }}>
+            Invoiceer
+          </Typography>
+          <Typography sx={{ ...styles.sloganText, bgcolor: bgcolor, color: color }}>
+            Simplify, Organize, Prosper
+          </Typography>
+        </>
       </Box>
     </Link>
   )

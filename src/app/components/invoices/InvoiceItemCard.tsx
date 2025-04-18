@@ -17,11 +17,15 @@ const DisplayMode = ({ invoiceItem }: DisplayModeProps) => {
   return (
     <>
       <Box className="flex-col flex-1">
-        <Typography variant="body1">{invoiceItem.description}</Typography>
-        <Typography variant="body1">{invoiceItem.cost}</Typography>
+        <>
+          <Typography variant="body1">{invoiceItem.description}</Typography>
+          <Typography variant="body1">{invoiceItem.cost}</Typography>
+        </>
       </Box>
       <Box className="flex-col flex-1">
-        <Typography variant="body1">{invoiceItem.quantity}</Typography>
+        <>
+          <Typography variant="body1">{invoiceItem.quantity}</Typography>
+        </>
       </Box>
     </>
   )
@@ -34,8 +38,10 @@ const EditMode = ({ invoiceItem }: EditModeProps) => {
   return (
     <>
       <Box className="flex-col flex-1">
-        <Input name="description" defaultValue={invoiceItem.description}></Input>
-        <Input name="cost" defaultValue={invoiceItem.cost}></Input>
+        <>
+          <Input name="description" defaultValue={invoiceItem.description}></Input>
+          <Input name="cost" defaultValue={invoiceItem.cost}></Input>
+        </>
       </Box>
       <Box className="flex-col flex-1">
         <Input name="quantity" defaultValue={invoiceItem.quantity}></Input>
@@ -70,19 +76,21 @@ const InvoiceItemCard = ({ invoiceItem, invoiceItems, setInvoiceItems, index }: 
       <ListItem sx={styles.cardHolder}>
         {isEditMode ? <EditMode invoiceItem={invoiceItem} /> : <DisplayMode invoiceItem={invoiceItem} />}
         <Box sx={styles.cardButtonHolder}>
-          <Button variant="outlined" sx={styles.cardButton} type="submit">
-            {!isEditMode ? <EditIcon /> : <CheckIcon />}
-          </Button>
+          <>
+            <Button variant="outlined" sx={styles.cardButton} type="submit">
+              {!isEditMode ? <EditIcon /> : <CheckIcon />}
+            </Button>
 
-          <Button
-            variant="outlined"
-            sx={styles.cardButton}
-            onClick={() => {
-              setInvoiceItems([...invoiceItems.slice(0, index), ...invoiceItems.slice(index + 1)])
-            }}
-          >
-            {<DeleteIcon />}
-          </Button>
+            <Button
+              variant="outlined"
+              sx={styles.cardButton}
+              onClick={() => {
+                setInvoiceItems([...invoiceItems.slice(0, index), ...invoiceItems.slice(index + 1)])
+              }}
+            >
+              {<DeleteIcon />}
+            </Button>
+          </>
         </Box>
       </ListItem>
     </form>

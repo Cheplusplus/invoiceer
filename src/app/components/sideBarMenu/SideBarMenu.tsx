@@ -18,8 +18,10 @@ const SideBarMenu = async () => {
     return (
       <>
         <Box sx={styles.content}>
-          {user?.nickname && <Typography sx={styles.welcomeText}>Welcome, {user.nickname}</Typography>}
-          {user?.picture && <img style={styles.userImage} src={user.picture} />}
+          <>
+            {user?.nickname && <Typography sx={styles.welcomeText}>Welcome, {user.nickname}</Typography>}
+            {user?.picture && <img style={styles.userImage} src={user.picture} />}
+          </>
         </Box>
 
         <Button href="/api/auth/logout" sx={styles.logoutButton} variant="outlined">
@@ -46,8 +48,10 @@ const SideBarMenu = async () => {
    */
   return (
     <Box sx={styles.container}>
-      <SiteLogo color="#387597" bgcolor="lightblue"></SiteLogo>
-      {user ? <LoggedInState /> : <LoggedOutState />}
+      <>
+        <SiteLogo color="#387597" bgcolor="lightblue"></SiteLogo>
+        {user ? <LoggedInState /> : <LoggedOutState />}
+      </>
     </Box>
   )
 }

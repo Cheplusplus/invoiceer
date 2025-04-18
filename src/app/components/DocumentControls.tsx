@@ -36,11 +36,13 @@ const DocumentControls = ({ invoiceID, setInvoicesPage }: DocumentControlsProps)
 
   return (
     <Box sx={styles.DocumentController}>
-      {sidebarIcons.map((item, i) => (
-        <Button onClick={() => item[1] && item[1]()} key={i} variant="outlined" sx={styles.DocumentControllerButton}>
-          {item[0]}
-        </Button>
-      ))}
+      <>
+        {sidebarIcons.map((item, i) => (
+          <Button onClick={() => item[1] && item[1]()} key={i} variant="outlined" sx={styles.DocumentControllerButton}>
+            {item[0]}
+          </Button>
+        ))}
+      </>
     </Box>
   )
 }

@@ -54,14 +54,16 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       <UserProvider>
         <body style={{ padding: "0", margin: "0", height: "100%" }} className={inter.className}>
           <Box sx={containerStyles}>
-            <SideBarMenu />
-            <Container
-              sx={{
-                height: "100vh",
-              }}
-            >
-              {children}
-            </Container>
+            <>
+              <SideBarMenu />
+              <Container
+                sx={{
+                  height: "100vh",
+                }}
+              >
+                {children}
+              </Container>
+            </>
           </Box>
         </body>
       </UserProvider>

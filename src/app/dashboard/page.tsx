@@ -1,5 +1,5 @@
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0"
-import DashboardPage from "../components/dashboard/DashboardPage"
+import DashboardPage from "../pages/DashboardPage"
 
 const Home = async () => {
   return <DashboardPage />

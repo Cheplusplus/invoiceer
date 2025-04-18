@@ -8,10 +8,10 @@
  *
  */
 
-import ClientsList from "./ClientsList"
-import { getAllClients } from "../../actions/actions"
+import ClientsList from "../components/clients/ClientsList"
+import { getAllClients } from "../actions/actions"
 import { Box, Paper, Typography } from "@mui/material"
-import ClientsForm from "./ClientsForm"
+import ClientsForm from "../components/clients/ClientsForm"
 
 const ClientsPage = async () => {
   const clients = await getAllClients()
@@ -33,8 +33,10 @@ const ClientsPage = async () => {
           display: "flex",
         }}
       >
-        <ClientsForm></ClientsForm>
-        <ClientsList clients={clients}></ClientsList>
+        <>
+          <ClientsForm></ClientsForm>
+          <ClientsList clients={clients}></ClientsList>
+        </>
       </Box>
     </Paper>
   )

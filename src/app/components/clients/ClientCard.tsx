@@ -15,12 +15,16 @@ const EditMode = ({ client }: EditModeProps) => {
   return (
     <>
       <Box sx={styles.cardInputHolder}>
-        <Input name="name" defaultValue={client.name}></Input>
-        <Input name="email" defaultValue={client.email}></Input>
+        <>
+          <Input name="name" defaultValue={client.name}></Input>
+          <Input name="email" defaultValue={client.email}></Input>
+        </>
       </Box>
       <Box sx={styles.cardInputHolder}>
-        <Input name="address1" defaultValue={client.address1}></Input>
-        <Input name="address2" defaultValue={client.address2}></Input>
+        <>
+          <Input name="address1" defaultValue={client.address1}></Input>
+          <Input name="address2" defaultValue={client.address2}></Input>
+        </>
       </Box>
     </>
   )
@@ -33,12 +37,16 @@ const DisplayMode = ({ client }: DisplayModeProps) => {
   return (
     <>
       <Box sx={styles.cardInputHolder}>
-        <Typography variant="body1">{client.name}</Typography>
-        <Typography variant="body1">{client.email}</Typography>
+        <>
+          <Typography variant="body1">{client.name}</Typography>
+          <Typography variant="body1">{client.email}</Typography>
+        </>
       </Box>
       <Box sx={styles.cardInputHolder}>
-        <Typography variant="body1">{client.address1}</Typography>
-        <Typography variant="body1">{client.address2}</Typography>
+        <>
+          <Typography variant="body1">{client.address1}</Typography>
+          <Typography variant="body1">{client.address2}</Typography>
+        </>
       </Box>
     </>
   )
@@ -68,20 +76,22 @@ const ClientCard = ({ client }: ClientCardProps) => {
         {isEditMode ? <EditMode client={client} /> : <DisplayMode client={client} />}
 
         <Box sx={styles.cardButtonHolder}>
-          <Button variant="outlined" sx={styles.cardButton} type="submit">
-            {isEditMode ? <CheckIcon /> : <EditIcon />}
-          </Button>
+          <>
+            <Button variant="outlined" sx={styles.cardButton} type="submit">
+              {isEditMode ? <CheckIcon /> : <EditIcon />}
+            </Button>
 
-          <Button
-            variant="outlined"
-            sx={styles.cardButton}
-            onClick={() => {
-              deleteClient(client.id || "")
-              router.refresh()
-            }}
-          >
-            {<DeleteIcon />}
-          </Button>
+            <Button
+              variant="outlined"
+              sx={styles.cardButton}
+              onClick={() => {
+                deleteClient(client.id || "")
+                router.refresh()
+              }}
+            >
+              {<DeleteIcon />}
+            </Button>
+          </>
         </Box>
       </ListItem>
     </form>

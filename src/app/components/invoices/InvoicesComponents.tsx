@@ -15,10 +15,12 @@ interface InvoicesControllerProps {
 export const InvoicesController = ({ setInvoiceForm }: InvoicesControllerProps) => {
   return (
     <Box sx={{ display: "flex" }}>
-      <Button variant="contained" onClick={() => setInvoiceForm("addInvoice")}>
-        Add New Invoice
-      </Button>
-      <SearchFilters />
+      <>
+        <Button variant="contained" onClick={() => setInvoiceForm("addInvoice")}>
+          Add New Invoice
+        </Button>
+        <SearchFilters />
+      </>
     </Box>
   )
 }
